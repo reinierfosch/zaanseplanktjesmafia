@@ -43,98 +43,79 @@
 }
 
 :root {
-  /* Gritty Street Art Theme - Underground Aesthetic */
-  /* Primary neon green for high-energy accents */
-  --primary: #00ff00;
-  --primary-foreground: #000000;
-  --sidebar-primary: #00dd00;
-  --sidebar-primary-foreground: #000000;
-  
-  /* Hot pink secondary accent */
-  --secondary: #ff1493;
+  /* Industrial Craft Aesthetic */
+  --primary: #000000;
+  --primary-foreground: #ffffff;
+  --secondary: #ff8c00;
   --secondary-foreground: #ffffff;
-  
-  /* Neon cyan for tertiary accents */
-  --accent: #00ffff;
+  --accent: #ffff00;
   --accent-foreground: #000000;
+  --chart-1: #ff8c00;
+  --chart-2: #ffff00;
+  --chart-3: #333333;
+  --chart-4: #666666;
+  --chart-5: #999999;
+  --radius: 0px;
   
-  /* Chart colors - vibrant neon palette */
-  --chart-1: #00ff00;
-  --chart-2: #ff1493;
-  --chart-3: #00ffff;
-  --chart-4: #ffff00;
-  --chart-5: #ff6600;
-  
-  --radius: 0.25rem;
-  
-  /* Dark background - pure black for gritty aesthetic */
-  --background: oklch(0.05 0 0);
-  --foreground: oklch(1 0 0);
-  
-  /* Card styling - slightly lighter black */
-  --card: oklch(0.08 0 0);
-  --card-foreground: oklch(1 0 0);
-  
-  /* Popover styling */
-  --popover: oklch(0.08 0 0);
-  --popover-foreground: oklch(1 0 0);
-  
-  /* Muted colors - dark grays */
-  --muted: oklch(0.2 0 0);
-  --muted-foreground: oklch(0.7 0 0);
-  
-  /* Destructive - red accent */
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(1 0 0);
-  
-  /* Border - dark with slight visibility */
-  --border: oklch(0.15 0 0);
-  --input: oklch(0.12 0 0);
-  --ring: #00ff00;
-  
-  /* Sidebar styling */
-  --sidebar: oklch(0.08 0 0);
-  --sidebar-foreground: oklch(1 0 0);
-  --sidebar-accent: #ff1493;
-  --sidebar-accent-foreground: oklch(1 0 0);
-  --sidebar-border: oklch(0.15 0 0);
-  --sidebar-ring: #00ff00;
+  /* Kraft paper / raw materials palette */
+  --background: #f5f1ed;
+  --foreground: #1a1a1a;
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a1a;
+  --secondary: #ff8c00;
+  --secondary-foreground: #ffffff;
+  --muted: #d4ccc4;
+  --muted-foreground: #666666;
+  --accent: #ffff00;
+  --accent-foreground: #000000;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #d4ccc4;
+  --input: #ffffff;
+  --ring: #ff8c00;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1a1a1a;
+  --sidebar-accent: #ff8c00;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #d4ccc4;
+  --sidebar-ring: #ff8c00;
 }
 
 .dark {
-  /* Dark theme (default for this project) */
-  --primary: #00ff00;
-  --primary-foreground: #000000;
-  --sidebar-primary: #00dd00;
-  --sidebar-primary-foreground: #000000;
-  --background: oklch(0.05 0 0);
-  --foreground: oklch(1 0 0);
-  --card: oklch(0.08 0 0);
-  --card-foreground: oklch(1 0 0);
-  --popover: oklch(0.08 0 0);
-  --popover-foreground: oklch(1 0 0);
-  --secondary: #ff1493;
-  --secondary-foreground: oklch(1 0 0);
-  --muted: oklch(0.2 0 0);
-  --muted-foreground: oklch(0.7 0 0);
-  --accent: #00ffff;
+  --primary: #000000;
+  --primary-foreground: #ffffff;
+  --sidebar-primary: #ff8c00;
+  --sidebar-primary-foreground: #ffffff;
+  --background: #1a1a1a;
+  --foreground: #f5f1ed;
+  --card: #2a2a2a;
+  --card-foreground: #f5f1ed;
+  --popover: #2a2a2a;
+  --popover-foreground: #f5f1ed;
+  --secondary: #ff8c00;
+  --secondary-foreground: #ffffff;
+  --muted: #444444;
+  --muted-foreground: #b0a89a;
+  --accent: #ffff00;
   --accent-foreground: #000000;
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.15 0 0);
-  --input: oklch(0.12 0 0);
-  --ring: #00ff00;
-  --chart-1: #00ff00;
-  --chart-2: #ff1493;
-  --chart-3: #00ffff;
-  --chart-4: #ffff00;
-  --chart-5: #ff6600;
-  --sidebar: oklch(0.08 0 0);
-  --sidebar-foreground: oklch(1 0 0);
-  --sidebar-accent: #ff1493;
-  --sidebar-accent-foreground: oklch(1 0 0);
-  --sidebar-border: oklch(0.15 0 0);
-  --sidebar-ring: #00ff00;
+  --destructive: #ff4444;
+  --destructive-foreground: #ffffff;
+  --border: #444444;
+  --input: #333333;
+  --ring: #ff8c00;
+  --chart-1: #ff8c00;
+  --chart-2: #ffff00;
+  --chart-3: #cccccc;
+  --chart-4: #999999;
+  --chart-5: #666666;
+  --sidebar: #2a2a2a;
+  --sidebar-foreground: #f5f1ed;
+  --sidebar-accent: #ff8c00;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #444444;
+  --sidebar-ring: #ff8c00;
 }
 
 @layer base {
@@ -143,7 +124,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Courier New', monospace;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -157,54 +138,42 @@
     @apply cursor-pointer;
   }
   
-  /* Typography - Gritty Street Art Style */
+  /* Typography - Industrial Craft Style */
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Oswald', sans-serif;
-    font-weight: 700;
-    letter-spacing: 0.05em;
+    font-family: 'Impact', 'Arial Black', sans-serif;
+    font-weight: 900;
+    letter-spacing: 0.02em;
     text-transform: uppercase;
+    line-height: 1.1;
   }
   
   h1 {
-    @apply text-4xl md:text-5xl lg:text-6xl;
-    font-weight: 700;
+    @apply text-5xl md:text-7xl lg:text-8xl;
+    font-weight: 900;
   }
   
   h2 {
-    @apply text-3xl md:text-4xl;
-    font-weight: 600;
+    @apply text-4xl md:text-5xl lg:text-6xl;
+    font-weight: 900;
   }
   
   h3 {
     @apply text-2xl md:text-3xl;
-    font-weight: 600;
+    font-weight: 900;
   }
   
   p {
     @apply text-base md:text-lg leading-relaxed;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Courier New', monospace;
   }
 }
 
 @layer components {
-  /**
-   * Custom container utility that centers content and adds responsive padding.
-   *
-   * This overrides Tailwind's default container behavior to:
-   * - Auto-center content (mx-auto)
-   * - Add responsive horizontal padding
-   * - Set max-width for large screens
-   *
-   * Usage: <div className="container">...</div>
-   *
-   * For custom widths, use max-w-* utilities directly:
-   * <div className="max-w-6xl mx-auto px-4">...</div>
-   */
   .container {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1rem; /* 16px - mobile padding */
+    padding-left: 1rem;
     padding-right: 1rem;
   }
 
@@ -215,51 +184,127 @@
 
   @media (min-width: 640px) {
     .container {
-      padding-left: 1.5rem; /* 24px - tablet padding */
+      padding-left: 1.5rem;
       padding-right: 1.5rem;
     }
   }
 
   @media (min-width: 1024px) {
     .container {
-      padding-left: 2rem; /* 32px - desktop padding */
+      padding-left: 2rem;
       padding-right: 2rem;
-      max-width: 1280px; /* Standard content width */
+      max-width: 1280px;
     }
   }
   
-  /* Gritty Street Art Components */
-  .gritty-border {
-    @apply border-2 border-foreground;
+  /* Industrial Craft Components */
+  .kraft-border {
+    @apply border-4 border-foreground;
     border-style: solid;
   }
   
-  .neon-glow {
-    @apply shadow-lg;
-    text-shadow: 0 0 10px currentColor;
+  .kraft-texture {
+    background-image: 
+      url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100' height='100' fill='%23f5f1ed' filter='url(%23noise)' opacity='0.1'/%3E%3C/svg%3E");
   }
   
-  .diagonal-cut {
-    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-  }
-  
-  .diagonal-cut-inverse {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 85%);
-  }
-  
-  .street-art-accent {
-    @apply relative;
+  .tape-stripe {
+    position: relative;
     overflow: hidden;
   }
   
-  .street-art-accent::before {
+  .tape-stripe::before {
     content: '';
-    @apply absolute inset-0 opacity-10;
-    background-image: 
-      radial-gradient(circle at 20% 50%, #00ff00 0.5px, transparent 0.5px),
-      radial-gradient(circle at 60% 70%, #ff1493 0.5px, transparent 0.5px),
-      radial-gradient(circle at 80% 10%, #00ffff 0.5px, transparent 0.5px);
-    background-size: 50px 50px;
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      45deg,
+      #ffff00,
+      #ffff00 20px,
+      #000000 20px,
+      #000000 40px
+    );
+    animation: tapeslide 20s linear infinite;
     pointer-events: none;
+    z-index: 10;
+  }
+  
+  @keyframes tapeslide {
+    0% {
+      left: -100%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+  
+  .marquee-tape {
+    position: relative;
+    overflow: hidden;
+    background: #ffff00;
+    color: #000000;
+    font-family: 'Impact', sans-serif;
+    font-weight: 900;
+    font-size: 1.5rem;
+    letter-spacing: 0.1em;
+    padding: 1rem 0;
+    white-space: nowrap;
+  }
+  
+  .marquee-tape-content {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 15s linear infinite;
+  }
+  
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+  .mascotte-stamp {
+    position: relative;
+    opacity: 0.15;
+    transform: rotate(-15deg);
+    pointer-events: none;
+  }
+  
+  .industrial-box {
+    @apply border-4 border-foreground bg-white;
+    box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.3);
+  }
+  
+  .industrial-box:hover {
+    box-shadow: 12px 12px 0px rgba(0, 0, 0, 0.4);
+    transform: translate(-2px, -2px);
+    transition: all 0.2s ease;
+  }
+  
+  .chalk-line {
+    position: relative;
+  }
+  
+  .chalk-line::before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: repeating-linear-gradient(
+      90deg,
+      #ffffff,
+      #ffffff 5px,
+      transparent 5px,
+      transparent 10px
+    );
+    opacity: 0.5;
   }
 }
