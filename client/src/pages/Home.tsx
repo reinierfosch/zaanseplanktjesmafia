@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { Mail } from "lucide-react";
+import { Mail, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 
 /**
- * De Zaanse Plankjes Maffia - Coming Soon Landing Page
- * Industrial / Craft / Urban Aesthetic
- * Design: Raw workshop vibe, heavy typography, moving tape marquee with URL pattern
+ * De Zaanse Plankjes Maffia - Art on Wooden Planks
+ * Focus: Selling unique artwork on wooden planks
+ * Design: Industrial/craft aesthetic with art gallery showcase
  */
 
 export default function Home() {
@@ -21,12 +21,66 @@ export default function Home() {
     }
   };
 
+  // Gallery artworks
+  const artworks = [
+    {
+      title: "Portret met Glitter",
+      image: "WhatsAppImage2025-12-26at18.45.30.jpeg",
+      price: "€45"
+    },
+    {
+      title: "Familie Moment",
+      image: "WhatsAppImage2025-12-26at18.45.30(1).jpeg",
+      price: "€55"
+    },
+    {
+      title: "Sketch & Color",
+      image: "WhatsAppImage2025-12-26at18.45.30(2).jpeg",
+      price: "€50"
+    },
+    {
+      title: "Portret Collectie",
+      image: "WhatsAppImage2025-12-26at18.45.30(3).jpeg",
+      price: "€65"
+    },
+    {
+      title: "Kunstwerk met Details",
+      image: "WhatsAppImage2025-12-26at18.45.30(4).jpeg",
+      price: "€60"
+    },
+    {
+      title: "Glitter Accenten",
+      image: "WhatsAppImage2025-12-26at18.45.31.jpeg",
+      price: "€55"
+    },
+    {
+      title: "Portret Duet",
+      image: "WhatsAppImage2025-12-26at18.45.31(1).jpeg",
+      price: "€50"
+    },
+    {
+      title: "Familie Kunstwerk",
+      image: "WhatsAppImage2025-12-26at18.45.31(2).jpeg",
+      price: "€60"
+    },
+    {
+      title: "Engel Portret",
+      image: "WhatsAppImage2025-12-26at18.45.31(3).jpeg",
+      price: "€55"
+    },
+    {
+      title: "Superhero Art",
+      image: "WhatsAppImage2025-12-26at18.45.31(4).jpeg",
+      price: "€65"
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-background text-foreground overflow-hidden">
       {/* Moving Marquee Tape - URL Pattern */}
       <div className="marquee-tape sticky top-0 z-50 border-y-4 border-foreground">
         <div className="marquee-tape-content">
-          ZAANSE-PLANKJESMAFFIA.NL • ZAANSE-PLANKJESMAFFIA.NL • ZAANSE-PLANKJESMAFFIA.NL • ZAANSE-PLANKJESMAFFIA.NL • ZAANSE-PLANKJESMAFFIA.NL •
+          ZAANSE-PLANKJESMAFFIA.NL • ZAANSE-PLANKJESMAFFIA.NL • ZAANSE-PLANKJESMAFFIA.NL • ZAANSE-PLANKJESMAFFIA.NL •
         </div>
       </div>
 
@@ -42,16 +96,7 @@ export default function Home() {
             backgroundAttachment: 'fixed'
           }}
         >
-          <div className="absolute inset-0 bg-black/40"></div>
-        </div>
-
-        {/* Mascotte Stamp - Background */}
-        <div className="absolute top-10 right-10 z-5 w-48 h-48 opacity-10">
-          <img 
-            src="/images/qr-code-design.png" 
-            alt="" 
-            className="w-full h-full object-contain"
-          />
+          <div className="absolute inset-0 bg-black/50"></div>
         </div>
 
         {/* Content */}
@@ -59,25 +104,34 @@ export default function Home() {
           <div className="max-w-3xl space-y-8">
             {/* Main Headline */}
             <h1 className="text-7xl md:text-8xl font-black leading-tight text-white drop-shadow-lg">
-              HIER WORDT
+              KUNST OP
               <br />
-              <span className="text-yellow-400">GEZAAGD</span>
+              <span className="text-yellow-400">PLANKJES</span>
             </h1>
 
             {/* Subheadline */}
             <p className="text-2xl md:text-3xl font-bold text-white drop-shadow-md max-w-2xl leading-tight">
-              De Zaanse Plankjes Maffia neemt de boel over.
-              <br />
-              Wij upcyclen afvalhout tot crimineel goede planken.
+              Unieke kunstwerken op houten planken. Handgemaakt, origineel, en klaar om aan je muur te hangen.
             </p>
 
             {/* Decorative Line */}
             <div className="w-24 h-2 bg-yellow-400"></div>
 
-            {/* CTA Text */}
-            <p className="text-lg md:text-xl text-gray-200 font-mono">
-              Coming Soon • Wij zijn aan het bouwen
-            </p>
+            {/* CTA */}
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <Button
+                className="bg-yellow-400 text-black hover:bg-yellow-300 border-4 border-black font-black text-lg px-8 py-6 uppercase flex items-center gap-2"
+              >
+                <ShoppingCart size={24} />
+                SHOP KUNSTWERKEN
+              </Button>
+              <Button
+                variant="outline"
+                className="border-4 border-white text-white hover:bg-white/10 font-black text-lg px-8 py-6 uppercase"
+              >
+                MEER INFORMATIE
+              </Button>
+            </div>
           </div>
         </div>
 
@@ -91,57 +145,96 @@ export default function Home() {
       </section>
 
       {/* Moving Tape Divider */}
-      <div className="marquee-tape border-y-4 border-foreground">
+      <div className="marquee-tape border-y-4 border-foreground bg-orange-500 text-white">
         <div className="marquee-tape-content">
-          • UPCYCLED • HANDMADE • SUSTAINABLE • UPCYCLED • HANDMADE • SUSTAINABLE • UPCYCLED • HANDMADE • SUSTAINABLE •
+          ★ HANDGEMAAKT ★ ORIGINEEL ★ UNIEK ★ HANDGEMAAKT ★ ORIGINEEL ★ UNIEK ★ HANDGEMAAKT ★
         </div>
       </div>
 
-      {/* Mission Section - De Missie */}
+      {/* Gallery Section */}
       <section className="relative py-24 bg-white">
-        <div className="container">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            {/* Left: Text */}
-            <div className="space-y-6">
-              <h2 className="text-5xl md:text-6xl font-black">
-                DE MISSIE
-              </h2>
+        <div className="container space-y-12">
+          <div>
+            <h2 className="text-5xl md:text-6xl font-black mb-4">
+              KUNSTGALERIE
+            </h2>
+            <p className="text-lg font-mono text-gray-700">
+              Ontdek onze collectie van handgemaakte kunstwerken op houten planken.
+            </p>
+          </div>
 
-              <div className="space-y-4 font-mono text-lg leading-relaxed">
-                <p>
-                  Afvalhout verdwijnt. Dat kan niet. Dat mag niet.
-                </p>
-                <p>
-                  Wij geven afvalhout een tweede leven. Elke plank vertelt een verhaal van 
-                  duurzaamheid, ambacht en rebellie tegen verspilling.
-                </p>
-                <p>
-                  Onze planken zijn niet zomaar hout. Het zijn kunstwerken. Het zijn statements.
-                  Het zijn de toekomst van upcycling.
+          {/* Gallery Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {artworks.map((artwork, idx) => (
+              <div 
+                key={idx}
+                className="industrial-box overflow-hidden hover:shadow-2xl transition-all group"
+              >
+                {/* Image */}
+                <div className="relative h-64 overflow-hidden bg-gray-200">
+                  <img 
+                    src={`/images/${artwork.image}`}
+                    alt={artwork.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+
+                {/* Info */}
+                <div className="p-6 space-y-4">
+                  <h3 className="text-xl font-black uppercase">{artwork.title}</h3>
+                  <div className="flex items-center justify-between pt-4 border-t-2 border-black">
+                    <p className="text-2xl font-black text-orange-600">{artwork.price}</p>
+                    <Button
+                      className="bg-black text-white hover:bg-gray-800 font-black px-4 py-2 uppercase text-sm"
+                    >
+                      Koop
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Moving Tape Divider */}
+      <div className="marquee-tape border-y-4 border-foreground">
+        <div className="marquee-tape-content">
+          ZAANSE-PLANKJESMAFFIA.NL • ZAANSE-PLANKJESMAFFIA.NL • ZAANSE-PLANKJESMAFFIA.NL • ZAANSE-PLANKJESMAFFIA.NL •
+        </div>
+      </div>
+
+      {/* Why Choose Us */}
+      <section className="relative py-24 bg-black text-white">
+        <div className="container space-y-12">
+          <h2 className="text-5xl md:text-6xl font-black">
+            WAAROM PLANKJES MAFFIA?
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Handgemaakt",
+                desc: "Elk kunstwerk is uniek en met liefde gemaakt."
+              },
+              {
+                title: "Origineel Design",
+                desc: "Geen massaproductie. Echte kunstenaarskwaliteit."
+              },
+              {
+                title: "Klaar om op te hangen",
+                desc: "Ontvang je kunstwerk kant-en-klaar aan je deur."
+              }
+            ].map((feature, idx) => (
+              <div key={idx} className="space-y-4">
+                <h3 className="text-2xl font-black uppercase text-yellow-400">
+                  {feature.title}
+                </h3>
+                <p className="font-mono text-lg text-gray-300 leading-relaxed">
+                  {feature.desc}
                 </p>
               </div>
-
-              <div className="pt-4 border-t-4 border-black">
-                <p className="font-bold text-sm uppercase">
-                  100% Gerecycled • 100% Handgemaakt • 100% Crimineel Goed
-                </p>
-              </div>
-            </div>
-
-            {/* Right: Visual - Mascotte Silhouette */}
-            <div className="relative h-96 flex items-center justify-center">
-              <div className="relative w-full h-full">
-                <img 
-                  src="/images/street-art-figure.png" 
-                  alt="Mascotte met plank" 
-                  className="w-full h-full object-contain opacity-80"
-                />
-                {/* Chalk line effect */}
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-white" style={{
-                  backgroundImage: 'repeating-linear-gradient(90deg, white 0px, white 10px, transparent 10px, transparent 20px)'
-                }}></div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -149,55 +242,64 @@ export default function Home() {
       {/* Moving Tape Divider */}
       <div className="marquee-tape border-y-4 border-foreground bg-orange-500 text-white">
         <div className="marquee-tape-content">
-          ⚠ PLACE DELICT ⚠ PLACE DELICT ⚠ PLACE DELICT ⚠ PLACE DELICT ⚠ PLACE DELICT ⚠
+          ⚡ WORKSHOPS BESCHIKBAAR ⚡ WORKSHOPS BESCHIKBAAR ⚡ WORKSHOPS BESCHIKBAAR ⚡
         </div>
       </div>
 
-      {/* Product Teaser - Het Wetboek */}
-      <section className="relative py-24 bg-black text-white">
+      {/* Workshops Section */}
+      <section className="relative py-24 bg-white">
         <div className="container space-y-12">
           <div>
             <h2 className="text-5xl md:text-6xl font-black mb-4">
-              HET WETBOEK
+              WORKSHOPS
             </h2>
-            <p className="text-lg font-mono text-gray-300">
-              Onze eerste collectie. Drie misdaden tegen verspilling.
+            <p className="text-lg font-mono text-gray-700">
+              Leer zelf kunstwerken maken op houten planken.
             </p>
           </div>
 
-          {/* Product Cards - Placeholder */}
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                title: "De Heling",
-                desc: "Gestolen van de vuilnisbelt. Gered van vernietiging.",
-                icon: "🪵"
+                title: "Beginner Workshop",
+                desc: "Leer de basis van portrettekenen op hout.",
+                price: "€35 p.p.",
+                duration: "2 uur"
               },
               {
-                title: "Samenscholing",
-                desc: "Planken die samen sterker zijn. Collectief upcyclen.",
-                icon: "🔗"
+                title: "Intermediate Workshop",
+                desc: "Voeg glitter en kleur toe aan je kunstwerken.",
+                price: "€45 p.p.",
+                duration: "3 uur"
               },
               {
-                title: "Openbare Dronkenschap",
-                desc: "Ruw, ongepolijst, vol karakter. Echt ambacht.",
-                icon: "🍺"
+                title: "Advanced Workshop",
+                desc: "Creëer je eigen meesterwerk met alle technieken.",
+                price: "€55 p.p.",
+                duration: "4 uur"
               }
-            ].map((product, idx) => (
+            ].map((workshop, idx) => (
               <div 
                 key={idx}
                 className="industrial-box p-8 space-y-4 hover:shadow-2xl transition-all"
               >
-                <div className="text-5xl mb-4">{product.icon}</div>
-                <h3 className="text-2xl font-black uppercase">{product.title}</h3>
+                <h3 className="text-2xl font-black uppercase">{workshop.title}</h3>
                 <p className="font-mono text-sm leading-relaxed text-gray-700">
-                  {product.desc}
+                  {workshop.desc}
                 </p>
-                <div className="pt-4 border-t-2 border-black">
-                  <p className="text-xs font-bold uppercase text-orange-600">
-                    Coming Soon
+                <div className="space-y-2 pt-4 border-t-2 border-black">
+                  <p className="text-xs font-bold uppercase text-gray-600">
+                    ⏱ {workshop.duration}
+                  </p>
+                  <p className="text-2xl font-black text-orange-600">
+                    {workshop.price}
                   </p>
                 </div>
+                <Button
+                  className="w-full bg-black text-white hover:bg-gray-800 font-black py-3 uppercase"
+                >
+                  Inschrijven
+                </Button>
               </div>
             ))}
           </div>
@@ -218,10 +320,10 @@ export default function Home() {
           <div className="max-w-2xl space-y-8">
             <div>
               <h2 className="text-5xl md:text-6xl font-black mb-4">
-                WORD BOARD MEMBER
+                STAY IN THE LOOP
               </h2>
               <p className="text-lg font-mono text-gray-700">
-                Meld je aan voor onze nieuwsbrief. Wees de eerste die hoort wanneer we lanceren.
+                Ontvang updates over nieuwe kunstwerken, workshops en exclusieve aanbiedingen.
               </p>
             </div>
 
@@ -240,7 +342,7 @@ export default function Home() {
                   type="submit"
                   className="bg-black text-white hover:bg-gray-800 border-4 border-black font-black text-lg px-8 py-4 uppercase"
                 >
-                  JOIN THE FAMILY
+                  ABONNEER
                 </Button>
               </div>
               {submitted && (
@@ -274,7 +376,7 @@ export default function Home() {
               <h3 className="font-black text-sm uppercase">Volg Ons</h3>
               <div className="flex gap-4">
                 <a href="#" className="font-mono font-bold hover:text-orange-600 transition-colors">Instagram</a>
-                <a href="#" className="font-mono font-bold hover:text-orange-600 transition-colors">Twitter</a>
+                <a href="#" className="font-mono font-bold hover:text-orange-600 transition-colors">TikTok</a>
               </div>
             </div>
           </div>
@@ -282,10 +384,10 @@ export default function Home() {
           {/* Footer Bottom */}
           <div className="border-t-4 border-black pt-8 text-center">
             <p className="font-mono text-sm text-gray-600">
-              © 2025 De Zaanse Plankjes Maffia • Handgemaakt in Zaandam
+              © 2025 De Zaanse Plankjes Maffia • Kunstwerken op Houten Planken
             </p>
             <p className="font-mono text-xs text-gray-500 mt-2">
-              Upcycled • Sustainable • Criminal
+              Handgemaakt in Zaandam • Origineel Design • Unieke Kunstwerken
             </p>
           </div>
         </div>
