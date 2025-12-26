@@ -26,52 +26,52 @@ export default function Home() {
     {
       title: "Portret met Glitter",
       image: "WhatsAppImage2025-12-26at18.45.30.jpeg",
-      price: "€45"
+      price: "€145"
     },
     {
       title: "Familie Moment",
       image: "WhatsAppImage2025-12-26at18.45.30(1).jpeg",
-      price: "€55"
+      price: "€155"
     },
     {
       title: "Sketch & Color",
       image: "WhatsAppImage2025-12-26at18.45.30(2).jpeg",
-      price: "€50"
+      price: "€150"
     },
     {
       title: "Portret Collectie",
       image: "WhatsAppImage2025-12-26at18.45.30(3).jpeg",
-      price: "€65"
+      price: "€165"
     },
     {
       title: "Kunstwerk met Details",
       image: "WhatsAppImage2025-12-26at18.45.30(4).jpeg",
-      price: "€60"
+      price: "€160"
     },
     {
       title: "Glitter Accenten",
       image: "WhatsAppImage2025-12-26at18.45.31.jpeg",
-      price: "€55"
+      price: "€155"
     },
     {
       title: "Portret Duet",
       image: "WhatsAppImage2025-12-26at18.45.31(1).jpeg",
-      price: "€50"
+      price: "€150"
     },
     {
       title: "Familie Kunstwerk",
       image: "WhatsAppImage2025-12-26at18.45.31(2).jpeg",
-      price: "€60"
+      price: "€160"
     },
     {
       title: "Engel Portret",
       image: "WhatsAppImage2025-12-26at18.45.31(3).jpeg",
-      price: "€55"
+      price: "€155"
     },
     {
       title: "Superhero Art",
       image: "WhatsAppImage2025-12-26at18.45.31(4).jpeg",
-      price: "€65"
+      price: "€165"
     }
   ];
 
@@ -263,19 +263,19 @@ export default function Home() {
               {
                 title: "Beginner Workshop",
                 desc: "Leer de basis van portrettekenen op hout.",
-                price: "€35 p.p.",
+                price: "€135 p.p.",
                 duration: "2 uur"
               },
               {
                 title: "Intermediate Workshop",
                 desc: "Voeg glitter en kleur toe aan je kunstwerken.",
-                price: "€45 p.p.",
+                price: "€145 p.p.",
                 duration: "3 uur"
               },
               {
                 title: "Advanced Workshop",
                 desc: "Creëer je eigen meesterwerk met alle technieken.",
-                price: "€55 p.p.",
+                price: "€155 p.p.",
                 duration: "4 uur"
               }
             ].map((workshop, idx) => (
