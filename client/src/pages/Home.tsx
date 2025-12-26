@@ -211,7 +211,8 @@ export default function Home() {
                       <img 
                         src={`/images/${artwork.image}`}
                         alt={artwork.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                        style={{ transform: 'rotate(-90deg)' }}
                       />
                     </div>
 
