@@ -27,12 +27,14 @@ export default function Home() {
     {
       title: "Portret met Glitter",
       image: "WhatsAppImage2025-12-26at18.45.30.jpeg",
-      price: "€145"
+      price: "€145",
+      rotation: 90
     },
     {
       title: "Familie Moment",
       image: "WhatsAppImage2025-12-26at18.45.30(1).jpeg",
-      price: "€155"
+      price: "€155",
+      rotation: 90
     },
     {
       title: "Sketch & Color",
@@ -212,7 +214,7 @@ export default function Home() {
                         src={`/images/${artwork.image}`}
                         alt={artwork.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
-                        style={{ transform: 'rotate(-90deg)' }}
+                        style={{ transform: `rotate(${artwork.rotation ? artwork.rotation : -90}deg)` }}
                       />
                     </div>
 
