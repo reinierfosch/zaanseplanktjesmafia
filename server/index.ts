@@ -6,15 +6,25 @@ import cors from "cors";
 import rateLimit from "express-rate-limit";
 import multer from "multer";
 import fs from "fs/promises";
+import { initDatabase } from "./lib/database.js";
 import * as artworkService from "./lib/artworkService.js";
 import * as sessionService from "./lib/sessionService.js";
 import * as orderService from "./lib/orderService.js";
+import * as newsletterService from "./lib/newsletterService.js";
+import * as contactService from "./lib/contactService.js";
+import * as emailService from "./lib/emailService.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Determine base directory - in production (bundled), __dirname is dist/, so go up one level
+// In development, __dirname is server/, so we need to handle both cases
+const BASE_DIR = process.env.NODE_ENV === "production" 
+  ? path.resolve(__dirname, "..")
+  : __dirname;
+
 // Digital file upload configuration
-const UPLOADS_DIR = path.resolve(__dirname, "uploads", "digital");
+const UPLOADS_DIR = path.resolve(BASE_DIR, "server", "uploads", "digital");
 
 // Ensure uploads directory exists
 async function ensureUploadsDir() {
@@ -88,8 +98,45 @@ const formLimiter = rateLimit({
 });
 
 async function startServer() {
+  // Ensure uploads directory exists before starting
+  try {
+    await ensureUploadsDir();
+    console.log("✓ Uploads directory ready");
+  } catch (error) {
+    console.error("⚠ Failed to create uploads directory:", error);
+    // Continue anyway - will try again on first upload
+  }
+
+  // Initialize database if configured
+  if (process.env.DB_HOST && process.env.DB_NAME) {
+    try {
+      initDatabase();
+      console.log("✓ Database initialized");
+    } catch (error) {
+      console.warn("⚠ Database initialization failed, using JSON fallback:", error);
+    }
+  }
+
   const app = express();
   const server = createServer(app);
+
+  // Subdomain detection middleware
+  app.use((req, res, next) => {
+    const hostname = req.hostname || req.get("host") || "";
+    const subdomain = hostname.split(".")[0];
+    
+    if (subdomain === "admin") {
+      (req as any).subdomain = "admin";
+    } else if (subdomain === "staging") {
+      (req as any).subdomain = "staging";
+    } else if (subdomain === "api") {
+      (req as any).subdomain = "api";
+    } else {
+      (req as any).subdomain = "main";
+    }
+    
+    next();
+  });
 
   // Middleware
   app.use(cors({
@@ -104,10 +151,10 @@ async function startServer() {
   app.use("/api", apiLimiter);
 
   // Admin auth middleware
-  const requireAdmin = (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    const sessionId = req.headers.authorization?.replace("Bearer ", "") || req.cookies?.sessionId;
+  const requireAdmin = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const sessionId = req.headers.authorization?.replace("Bearer ", "") || (req as any).cookies?.sessionId;
     
-    if (!sessionId || !sessionService.verifySession(sessionId)) {
+    if (!sessionId || !(await sessionService.verifySession(sessionId))) {
       return res.status(401).json({ error: "Unauthorized" });
     }
     
@@ -143,16 +190,15 @@ async function startServer() {
         });
       }
 
-      // TODO: Store in database or send to email service
-      // For now, just log it
-      console.log("Newsletter subscription:", { email, name: name || "N/A" });
+      // Subscribe to newsletter (stores in database)
+      const subscription = await newsletterService.subscribeToNewsletter(email, name);
 
-      // Simulate async operation
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // Send confirmation email
+      await emailService.sendNewsletterConfirmation(email, name);
 
       res.status(200).json({ 
         message: "Successfully subscribed to newsletter",
-        email,
+        email: subscription.email,
       });
     } catch (error) {
       console.error("Newsletter subscription error:", error);
@@ -168,6 +214,12 @@ async function startServer() {
       const { name, email, message, subject } = req.body;
 
       // Basic validation
+      if (!name || typeof name !== "string") {
+        return res.status(400).json({ 
+          error: "Name is required and must be a string" 
+        });
+      }
+
       if (!email || typeof email !== "string") {
         return res.status(400).json({ 
           error: "Email is required and must be a string" 
@@ -188,12 +240,16 @@ async function startServer() {
         });
       }
 
-      // TODO: Store in database or send email
-      // For now, just log it
-      console.log("Contact form submission:", { name, email, subject, message });
+      // Store in database
+      await contactService.createContactSubmission(name, email, message, subject);
 
-      // Simulate async operation
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // Send notification email to admin
+      await emailService.sendContactNotification({
+        name,
+        email,
+        subject,
+        message,
+      });
 
       res.status(200).json({ 
         message: "Contact form submitted successfully",
@@ -230,7 +286,7 @@ async function startServer() {
     }
   });
 
-  app.post("/api/artworks", requireAdmin, async (req, res) => {
+  app.post("/api/artworks", requireAdmin as any, async (req, res) => {
     try {
       const { title, image, category, description, available, rotation, availableProducts, digitalFile } = req.body;
 
@@ -256,7 +312,7 @@ async function startServer() {
     }
   });
 
-  app.put("/api/artworks/:id", requireAdmin, async (req, res) => {
+  app.put("/api/artworks/:id", requireAdmin as any, async (req, res) => {
     try {
       const { title, image, category, description, available, rotation, availableProducts, digitalFile } = req.body;
       const artwork = await artworkService.updateArtwork(req.params.id, {
@@ -281,7 +337,7 @@ async function startServer() {
     }
   });
 
-  app.delete("/api/artworks/:id", requireAdmin, async (req, res) => {
+  app.delete("/api/artworks/:id", requireAdmin as any, async (req, res) => {
     try {
       const deleted = await artworkService.deleteArtwork(req.params.id);
       if (!deleted) {
@@ -295,7 +351,7 @@ async function startServer() {
   });
 
   // Digital file upload endpoint
-  app.post("/api/artworks/:id/upload-digital", requireAdmin, upload.single("digitalFile"), async (req, res) => {
+  app.post("/api/artworks/:id/upload-digital", requireAdmin as any, upload.single("digitalFile"), async (req, res) => {
     try {
       if (!req.file) {
         return res.status(400).json({ error: "Geen bestand geüpload" });
@@ -354,7 +410,7 @@ async function startServer() {
   });
 
   // Digital file download endpoint
-  app.get("/api/artworks/:id/digital-file", requireAdmin, async (req, res) => {
+  app.get("/api/artworks/:id/digital-file", requireAdmin as any, async (req, res) => {
     try {
       const artworkId = req.params.id;
       const artwork = await artworkService.getArtworkById(artworkId);
@@ -396,7 +452,7 @@ async function startServer() {
   });
 
   // Digital file delete endpoint
-  app.delete("/api/artworks/:id/digital-file", requireAdmin, async (req, res) => {
+  app.delete("/api/artworks/:id/digital-file", requireAdmin as any, async (req, res) => {
     try {
       const artworkId = req.params.id;
       const artwork = await artworkService.getArtworkById(artworkId);
@@ -448,7 +504,7 @@ async function startServer() {
         return res.status(401).json({ error: "Invalid password" });
       }
 
-      const session = sessionService.createSession();
+      const session = await sessionService.createSession();
       res.json({ sessionId: session.sessionId, expiresAt: session.expiresAt });
     } catch (error) {
       console.error("Error during admin login:", error);
@@ -458,9 +514,9 @@ async function startServer() {
 
   app.post("/api/admin/logout", async (req, res) => {
     try {
-      const sessionId = req.headers.authorization?.replace("Bearer ", "") || req.cookies?.sessionId;
+      const sessionId = req.headers.authorization?.replace("Bearer ", "") || (req as any).cookies?.sessionId;
       if (sessionId) {
-        sessionService.deleteSession(sessionId);
+        await sessionService.deleteSession(sessionId);
       }
       res.json({ message: "Logged out successfully" });
     } catch (error) {
@@ -471,8 +527,8 @@ async function startServer() {
 
   app.get("/api/admin/me", async (req, res) => {
     try {
-      const sessionId = req.headers.authorization?.replace("Bearer ", "") || req.cookies?.sessionId;
-      const session = sessionId ? sessionService.getSession(sessionId) : null;
+      const sessionId = req.headers.authorization?.replace("Bearer ", "") || (req as any).cookies?.sessionId;
+      const session = sessionId ? await sessionService.getSession(sessionId) : null;
 
       if (!session) {
         return res.status(401).json({ error: "Not authenticated" });
@@ -517,7 +573,16 @@ async function startServer() {
         artworkTitle = artwork?.title;
       }
 
-      // Generate email link
+      // Send admin notification email
+      await emailService.sendOrderNotification({
+        id: order.id,
+        artworkId: order.artworkId,
+        orderType: order.orderType,
+        contactInfo: order.contactInfo,
+        artworkTitle,
+      });
+
+      // Generate email link (fallback for mailto)
       const emailLink = orderService.generateOrderEmail(order, artworkTitle);
 
       res.status(201).json({ 
@@ -529,6 +594,50 @@ async function startServer() {
       console.error("Error creating order:", error);
       res.status(500).json({ error: "Internal server error" });
     }
+  });
+
+  // Subdomain-specific routing
+  app.use((req, res, next) => {
+    const subdomain = (req as any).subdomain;
+
+    // API subdomain - serve API documentation or health check
+    if (subdomain === "api") {
+      if (req.path === "/" || req.path === "/health") {
+        return res.json({
+          name: "Zaanse Plankjes Maffia API",
+          version: "1.0.0",
+          endpoints: {
+            health: "/health",
+            artworks: "/api/artworks",
+            orders: "/api/orders",
+            newsletter: "/api/newsletter",
+            contact: "/api/contact",
+            admin: "/api/admin",
+          },
+        });
+      }
+    }
+
+    // Admin subdomain - redirect to admin panel
+    if (subdomain === "admin") {
+      if (req.path === "/" || req.path.startsWith("/admin")) {
+        const staticPath =
+          process.env.NODE_ENV === "production"
+            ? path.resolve(__dirname, "public")
+            : path.resolve(__dirname, "..", "dist", "public");
+        return res.sendFile(path.join(staticPath, "index.html"));
+      }
+    }
+
+    // Staging subdomain - serve staging version
+    if (subdomain === "staging") {
+      // Use staging database if configured
+      if (process.env.STAGING_DB_NAME) {
+        // Could switch database connection here
+      }
+    }
+
+    next();
   });
 
   // Serve static files from dist/public in production
