@@ -1,0 +1,56 @@
+#!/usr/bin/expect -f
+# Strato SSH Connection Script
+# Gebruik: expect strato_ssh_connect.exp
+
+set timeout 30
+set host "ssh.strato.de"
+set port "22"
+set user "www.plankjesmaffia.nl"  # Vervang met je Strato gebruikersnaam
+set pass "YOUR_STRATO_PASSWORD"   # Vervang met je Strato wachtwoord
+
+spawn ssh -o StrictHostKeyChecking=no -p $port $user@$host
+
+expect {
+    "password:" {
+        send "$pass\r"
+        exp_continue
+    }
+    "Password:" {
+        send "$pass\r"
+        exp_continue
+    }
+    "$ " {
+    }
+    "# " {
+    }
+    timeout {
+        puts "Connection timeout"
+        exit 1
+    }
+    eof {
+        puts "Connection failed"
+        exit 1
+    }
+}
+
+# Run commands
+send "pwd\r"
+expect "$ "
+send "whoami\r"
+expect "$ "
+send "ls -la\r"
+expect "$ "
+send "hostname\r"
+expect "$ "
+send "df -h\r"
+expect "$ "
+
+# Check DNS (if possible)
+send "dig plankjesmaffia.nl +short\r"
+expect "$ "
+send "nslookup plankjesmaffia.nl\r"
+expect "$ "
+
+send "exit\r"
+expect eof
+
