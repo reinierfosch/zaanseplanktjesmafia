@@ -3,10 +3,19 @@
 # Gebruik: expect strato_ssh_connect.exp
 
 set timeout 30
-set host "ssh.strato.de"
+# Strato SSH Connection Script
+# Gebruik: expect strato_ssh_connect.exp
+# 
+# Vind je gegevens:
+# - Master-ID: Mijn Strato → Pakketten → Pakketgegevens
+# - Masterwachtwoord: Mijn Strato → Pakketten → Wachtwoorden wijzigen
+# - SSH moet geactiveerd zijn: Mijn Strato → Beveiliging → SiteGuard
+
+set timeout 30
+set host "ssh.strato.com"  # Of ssh.strato.de
 set port "22"
-set user "www.plankjesmaffia.nl"  # Vervang met je Strato gebruikersnaam
-set pass "YOUR_STRATO_PASSWORD"   # Vervang met je Strato wachtwoord
+set user "12345678.swh.strato-hosting.eu"  # Vervang met je Master-ID (vind in Strato control panel)
+set pass "YOUR_MASTER_PASSWORD"   # Vervang met je Strato masterwachtwoord
 
 spawn ssh -o StrictHostKeyChecking=no -p $port $user@$host
 
