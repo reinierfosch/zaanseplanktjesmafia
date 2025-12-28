@@ -193,8 +193,13 @@ async function startServer() {
       // Subscribe to newsletter (stores in database)
       const subscription = await newsletterService.subscribeToNewsletter(email, name);
 
-      // Send confirmation email
-      await emailService.sendNewsletterConfirmation(email, name);
+      // Send confirmation email (don't fail if email service is not configured)
+      try {
+        await emailService.sendNewsletterConfirmation(email, name);
+      } catch (emailError) {
+        console.warn("Failed to send newsletter confirmation email:", emailError);
+        // Continue anyway - subscription was successful
+      }
 
       res.status(200).json({ 
         message: "Successfully subscribed to newsletter",
@@ -202,8 +207,21 @@ async function startServer() {
       });
     } catch (error) {
       console.error("Newsletter subscription error:", error);
+      
+      // Provide more specific error messages
+      let errorMessage = "Internal server error. Please try again later.";
+      if (error instanceof Error) {
+        if (error.message.includes("table") && error.message.includes("doesn't exist")) {
+          errorMessage = "Database configuration error. Please contact the administrator.";
+        } else if (error.message.includes("connection") || error.message.includes("access denied")) {
+          errorMessage = "Database connection error. Please contact the administrator.";
+        } else {
+          errorMessage = error.message;
+        }
+      }
+      
       res.status(500).json({ 
-        error: "Internal server error. Please try again later." 
+        error: errorMessage
       });
     }
   });
