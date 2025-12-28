@@ -1,0 +1,55 @@
+#!/usr/bin/expect -f
+
+set timeout 30
+set host "46.202.156.148"
+set port "65002"
+set user "u127066462"
+set pass "uy4282o398ru23jd238hr28*G"
+
+spawn ssh -o StrictHostKeyChecking=no -p $port $user@$host
+
+expect {
+    "password:" {
+        send "$pass\r"
+        exp_continue
+    }
+    "Password:" {
+        send "$pass\r"
+        exp_continue
+    }
+    "$ " {
+    }
+    timeout {
+        exit 1
+    }
+    eof {
+        exit 1
+    }
+}
+
+send "cd domains/indigo-porpoise-872121.hostingersite.com/public_html\r"
+expect "$ "
+
+# Check application logs
+send "tail -50 .builds/logs/error.log 2>/dev/null | tail -20 || echo 'No error log found'\r"
+expect "$ "
+
+# Check if Node.js process is running
+send "ps aux | grep -E 'node|passenger' | grep -v grep | head -5\r"
+expect "$ "
+
+# Test database connection
+send "cd server && node -e \"const mysql = require('mysql2/promise'); const pool = mysql.createPool({host: 'localhost', user: 'u127066462_admin', password: 'iI>3~|RMuwf&', database: 'u127066462_plankjes', port: 3306}); pool.query('SELECT 1 as test').then(() => console.log('Database connection: OK')).catch(e => console.log('Database connection: ERROR -', e.message)).finally(() => pool.end());\" 2>&1 || echo 'Node.js test failed'\r"
+expect "$ "
+
+# Check file permissions
+send "ls -la .env dist/index.js 2>/dev/null\r"
+expect "$ "
+
+# Touch a file to trigger Passenger restart (if needed)
+send "touch tmp/restart.txt 2>/dev/null || touch .builds/restart.txt 2>/dev/null || echo 'Cannot trigger restart'\r"
+expect "$ "
+
+send "exit\r"
+expect eof
+
