@@ -76,7 +76,7 @@
 
 /// <reference types="@types/google.maps" />
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePersistFn } from "@/hooks/usePersistFn";
 import { cn } from "@/lib/utils";
 
@@ -86,24 +86,39 @@ declare global {
   }
 }
 
-const API_KEY = import.meta.env.VITE_FRONTEND_FORGE_API_KEY;
-const FORGE_BASE_URL =
-  import.meta.env.VITE_FRONTEND_FORGE_API_URL ||
-  "https://forge.butterfly-effect.dev";
+import { getMapsApiKey, getForgeApiUrl } from "@/lib/env";
+
+const API_KEY = getMapsApiKey();
+const FORGE_BASE_URL = getForgeApiUrl();
 const MAPS_PROXY_URL = `${FORGE_BASE_URL}/v1/maps/proxy`;
 
 function loadMapScript() {
-  return new Promise(resolve => {
+  return new Promise<void>((resolve, reject) => {
+    // Check if script is already loaded
+    if (window.google?.maps) {
+      resolve();
+      return;
+    }
+
+    // Check if script is already being loaded
+    const existingScript = document.querySelector(`script[src*="${MAPS_PROXY_URL}"]`);
+    if (existingScript) {
+      existingScript.addEventListener("load", () => resolve());
+      existingScript.addEventListener("error", () => reject(new Error("Failed to load Google Maps script")));
+      return;
+    }
+
     const script = document.createElement("script");
     script.src = `${MAPS_PROXY_URL}/maps/api/js?key=${API_KEY}&v=weekly&libraries=marker,places,geocoding,geometry`;
     script.async = true;
     script.crossOrigin = "anonymous";
     script.onload = () => {
-      resolve(null);
-      script.remove(); // Clean up immediately
+      resolve();
     };
     script.onerror = () => {
-      console.error("Failed to load Google Maps script");
+      reject(new Error(
+        "Failed to load Google Maps script. Please check your VITE_FRONTEND_FORGE_API_KEY environment variable."
+      ));
     };
     document.head.appendChild(script);
   });
@@ -124,30 +139,69 @@ export function MapView({
 }: MapViewProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<google.maps.Map | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const init = usePersistFn(async () => {
-    await loadMapScript();
-    if (!mapContainer.current) {
-      console.error("Map container not found");
-      return;
-    }
-    map.current = new window.google.maps.Map(mapContainer.current, {
-      zoom: initialZoom,
-      center: initialCenter,
-      mapTypeControl: true,
-      fullscreenControl: true,
-      zoomControl: true,
-      streetViewControl: true,
-      mapId: "DEMO_MAP_ID",
-    });
-    if (onMapReady) {
-      onMapReady(map.current);
+    try {
+      setIsLoading(true);
+      setError(null);
+      await loadMapScript();
+      
+      if (!mapContainer.current) {
+        throw new Error("Map container not found");
+      }
+
+      if (!window.google?.maps) {
+        throw new Error("Google Maps API failed to load. Please check your API key configuration.");
+      }
+
+      map.current = new window.google.maps.Map(mapContainer.current, {
+        zoom: initialZoom,
+        center: initialCenter,
+        mapTypeControl: true,
+        fullscreenControl: true,
+        zoomControl: true,
+        streetViewControl: true,
+        mapId: "DEMO_MAP_ID",
+      });
+      
+      if (onMapReady) {
+        onMapReady(map.current);
+      }
+      setIsLoading(false);
+    } catch (err) {
+      const errorMessage = err instanceof Error 
+        ? err.message 
+        : "Failed to load map. Please try again later.";
+      setError(errorMessage);
+      setIsLoading(false);
+      console.error("Map initialization error:", err);
     }
   });
 
   useEffect(() => {
     init();
   }, [init]);
+
+  if (error) {
+    return (
+      <div className={cn("w-full h-[500px] flex items-center justify-center bg-gray-100 border-4 border-gray-300", className)}>
+        <div className="text-center p-8">
+          <p className="text-red-600 font-bold mb-2" role="alert">Kaart kan niet worden geladen</p>
+          <p className="text-gray-600 text-sm">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className={cn("w-full h-[500px] flex items-center justify-center bg-gray-100", className)}>
+        <p className="text-gray-600">Kaart wordt geladen...</p>
+      </div>
+    );
+  }
 
   return (
     <div ref={mapContainer} className={cn("w-full h-[500px]", className)} />

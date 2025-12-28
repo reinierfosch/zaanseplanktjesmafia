@@ -1,0 +1,119 @@
+[
+  {
+    "id": "1",
+    "title": "Safe Spaces #1",
+    "image": "WhatsAppImage2025-12-26at18.45.30.jpeg",
+    "category": "grafische-kunst",
+    "description": "De eerste veilig plek! ",
+    "available": true,
+    "rotation": 0,
+    "createdAt": "2025-12-26T00:00:00.000Z",
+    "updatedAt": "2025-12-27T20:06:55.510Z",
+    "availableProducts": [
+      "tshirt",
+      "mug",
+      "notebook",
+      "tote-bag",
+      "canvas",
+      "poster",
+      "sticker"
+    ]
+  },
+  {
+    "id": "2",
+    "title": "Familie Moment",
+    "image": "WhatsAppImage2025-12-26at18.45.30(1).jpeg",
+    "category": "grafische-kunst",
+    "description": "Een warm familieportret",
+    "available": true,
+    "rotation": 0,
+    "createdAt": "2025-12-26T00:00:00.000Z",
+    "updatedAt": "2025-12-27T18:20:05.159Z"
+  },
+  {
+    "id": "3",
+    "title": "Sketch & Color",
+    "image": "WhatsAppImage2025-12-26at18.45.30(2).jpeg",
+    "category": "grafische-kunst",
+    "description": "Een kleurrijke schets",
+    "available": true,
+    "createdAt": "2025-12-26T00:00:00.000Z",
+    "updatedAt": "2025-12-27T18:21:08.084Z",
+    "rotation": -90
+  },
+  {
+    "id": "4",
+    "title": "Portret Collectie",
+    "image": "WhatsAppImage2025-12-26at18.45.30(3).jpeg",
+    "category": "grafische-kunst",
+    "description": "Een collectie van portretten",
+    "available": true,
+    "createdAt": "2025-12-26T00:00:00.000Z",
+    "updatedAt": "2025-12-27T18:22:09.922Z",
+    "rotation": -90
+  },
+  {
+    "id": "5",
+    "title": "Kunstwerk met Details",
+    "image": "WhatsAppImage2025-12-26at18.45.30(4).jpeg",
+    "category": "grafische-kunst",
+    "description": "Een gedetailleerd kunstwerk",
+    "available": true,
+    "createdAt": "2025-12-26T00:00:00.000Z",
+    "updatedAt": "2025-12-26T00:00:00.000Z"
+  },
+  {
+    "id": "6",
+    "title": "Glitter Accenten",
+    "image": "WhatsAppImage2025-12-26at18.45.31.jpeg",
+    "category": "grafische-kunst",
+    "description": "Kunstwerk met glitter accenten",
+    "available": true,
+    "createdAt": "2025-12-26T00:00:00.000Z",
+    "updatedAt": "2025-12-26T00:00:00.000Z"
+  },
+  {
+    "id": "7",
+    "title": "Portret Duet",
+    "image": "WhatsAppImage2025-12-26at18.45.31(1).jpeg",
+    "category": "grafische-kunst",
+    "description": "Twee portretten samen",
+    "available": true,
+    "createdAt": "2025-12-26T00:00:00.000Z",
+    "updatedAt": "2025-12-27T18:20:44.216Z",
+    "rotation": -90
+  },
+  {
+    "id": "8",
+    "title": "Familie Kunstwerk",
+    "image": "WhatsAppImage2025-12-26at18.45.31(2).jpeg",
+    "category": "grafische-kunst",
+    "description": "Een familie kunstwerk",
+    "available": true,
+    "createdAt": "2025-12-26T00:00:00.000Z",
+    "updatedAt": "2025-12-27T18:21:36.452Z",
+    "rotation": -90
+  },
+  {
+    "id": "9",
+    "title": "Engel Portret",
+    "image": "WhatsAppImage2025-12-26at18.45.31(3).jpeg",
+    "category": "grafische-kunst",
+    "description": "Een engel portret",
+    "available": true,
+    "createdAt": "2025-12-26T00:00:00.000Z",
+    "updatedAt": "2025-12-27T18:21:25.944Z",
+    "rotation": -90
+  },
+  {
+    "id": "10",
+    "title": "Superhero Art",
+    "image": "WhatsAppImage2025-12-26at18.45.31(4).jpeg",
+    "category": "grafische-kunst",
+    "description": "Superhero kunstwerk",
+    "available": true,
+    "createdAt": "2025-12-26T00:00:00.000Z",
+    "updatedAt": "2025-12-27T18:21:16.058Z",
+    "rotation": -90
+  }
+]
