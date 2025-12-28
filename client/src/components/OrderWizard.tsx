@@ -426,17 +426,6 @@ export function OrderWizard({ open, onOpenChange, artwork }: OrderWizardProps) {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="phone">Telefoon (optioneel)</Label>
-                    <Input
-                      id="phone"
-                      type="tel"
-                      {...register("contactInfo.phone")}
-                      placeholder="+31 6 12 34 56 78"
-                      className="font-mono"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
                     <Label htmlFor="message">Extra bericht (optioneel)</Label>
                     <Textarea
                       id="message"

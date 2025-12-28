@@ -79,19 +79,6 @@ export function ContactTab({ onSubmitNewsletter }: ContactTabProps) {
                 </div>
 
                 <div>
-                  <p className="font-black text-sm uppercase text-gray-600 mb-2">Telefoon</p>
-                  <p className="font-mono text-xl">
-                    <a 
-                      href="tel:+31612345678" 
-                      className="hover:text-orange-600 transition-colors"
-                      aria-label="Bel +31 (0)6 12 34 56 78"
-                    >
-                      +31 (0)6 12 34 56 78
-                    </a>
-                  </p>
-                </div>
-
-                <div>
                   <p className="font-black text-sm uppercase text-gray-600 mb-2">Locatie</p>
                   <p className="font-mono text-lg">
                     Zaandam, Nederland
