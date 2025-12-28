@@ -13,14 +13,14 @@
 ### ✅ **2. .env Bestand Aangemaakt**
 - Database credentials geconfigureerd:
   - `DB_HOST=localhost`
-  - `DB_USER=REDACTED_DB_USER`
-  - `DB_PASSWORD=REDACTED_PASSWORD`
-  - `DB_NAME=REDACTED_DB_NAME`
+  - `DB_USER=<your_db_user>`
+  - `DB_PASSWORD=<your_db_password>`
+  - `DB_NAME=<your_db_name>`
   - `DB_PORT=3306`
 - Application settings:
   - `NODE_ENV=production`
   - `PORT=3000`
-  - `ADMIN_PASSWORD=admin123` ⚠️ **Wijzig dit in productie!**
+  - `ADMIN_PASSWORD=<your_admin_password>` ⚠️ **Wijzig dit in productie!**
   - `ADMIN_EMAIL=info@plankjesmaffia.nl`
   - `ALLOWED_ORIGINS` geconfigureerd
 
@@ -41,7 +41,7 @@
 
 ### **2. Test Admin Login**
 1. Ga naar `/admin`
-2. Log in met wachtwoord: `admin123`
+2. Log in met wachtwoord: `<your_admin_password>`
 3. Het zou moeten werken! ✅
 
 ### **3. Test Database Connectie**
@@ -91,7 +91,7 @@ tail -f .builds/logs/error.log
 
 ### **Test Database Connectie:**
 ```bash
-mysql -u REDACTED_DB_USER -p'REDACTED_PASSWORD' REDACTED_DB_NAME -e "SELECT COUNT(*) FROM newsletter_subscriptions;"
+mysql -u <your_db_user> -p'<your_db_password>' <your_db_name> -e "SELECT COUNT(*) FROM newsletter_subscriptions;"
 ```
 
 ### **Herstart App (als nodig):**
