@@ -1,0 +1,61 @@
+#!/usr/bin/expect -f
+
+set timeout 30
+set host "46.202.156.148"
+set port "65002"
+set user "u127066462"
+set pass "uy4282o398ru23jd238hr28*G"
+
+spawn ssh -o StrictHostKeyChecking=no -p $port $user@$host
+
+expect {
+    "password:" {
+        send "$pass\r"
+        exp_continue
+    }
+    "Password:" {
+        send "$pass\r"
+        exp_continue
+    }
+    "$ " {
+        # Connected successfully
+    }
+    "# " {
+        # Connected successfully (root)
+    }
+    timeout {
+        puts "Connection timeout"
+        exit 1
+    }
+    eof {
+        puts "Connection failed"
+        exit 1
+    }
+}
+
+# Run commands
+send "pwd\r"
+expect "$ "
+send "whoami\r"
+expect "$ "
+send "ls -la\r"
+expect "$ "
+send "df -h\r"
+expect "$ "
+send "node --version 2>/dev/null || echo 'Node.js not found'\r"
+expect "$ "
+send "pnpm --version 2>/dev/null || echo 'PNPM not found'\r"
+expect "$ "
+send "env | grep -E '(NODE|DB_|SMTP_|PORT)' | head -20\r"
+expect "$ "
+send "find ~ -maxdepth 3 -name 'package.json' -o -name 'dist' -type d 2>/dev/null | head -10\r"
+expect "$ "
+send "find ~ -maxdepth 3 -name '.env*' 2>/dev/null\r"
+expect "$ "
+send "ps aux | grep node | grep -v grep || echo 'No Node.js processes running'\r"
+expect "$ "
+send "mysql --version 2>/dev/null || echo 'MySQL client not found'\r"
+expect "$ "
+send "exit\r"
+expect eof
+
