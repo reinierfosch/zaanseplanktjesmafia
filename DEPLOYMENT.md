@@ -28,6 +28,8 @@ dist/
 - Minimaal 512MB RAM
 - Minimaal 1GB vrije schijfruimte
 - Toegang tot poort 3000 (of configureerbaar via PORT environment variable)
+- MySQL database (optioneel, JSON fallback beschikbaar)
+- SMTP email configuratie (optioneel, mailto fallback beschikbaar)
 
 ### 3. Bestandsstructuur op Server
 
@@ -35,9 +37,10 @@ dist/
 /opt/plankjes-maffia/
 ├── dist/              # Build output (kopieer van lokale dist/)
 ├── server/
-│   ├── data/          # JSON data bestanden (artworks.json, orders.json)
-│   └── uploads/       # Geüploade digitale bestanden
-│       └── digital/   # Digitale kunstwerk bestanden
+│   ├── data/          # JSON data bestanden (backup, optioneel met MySQL)
+│   ├── uploads/       # Geüploade digitale bestanden
+│   │   └── digital/   # Digitale kunstwerk bestanden
+│   └── scripts/       # Database scripts
 ├── client/
 │   └── public/
 │       └── images/    # Kunstwerk afbeeldingen
@@ -90,10 +93,26 @@ mkdir -p server/uploads/digital
 mkdir -p client/public/images
 ```
 
-#### 3.3 Kopieer Data Bestanden
+#### 3.3 Database Setup (MySQL)
 
-Zorg dat `server/data/artworks.json` en `server/data/orders.json` bestaan.
-Als ze niet bestaan, worden ze automatisch aangemaakt bij eerste gebruik.
+Als je MySQL gebruikt (aanbevolen):
+
+1. Maak database aan (zie `DEPLOYMENT_MYSQL.md` voor details):
+```bash
+mysql -u root -p -e "CREATE DATABASE plankjes_maffia CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+```
+
+2. Importeer schema:
+```bash
+mysql -u root -p plankjes_maffia < server/scripts/create-schema.sql
+```
+
+3. Migreer bestaande data (als je JSON files hebt):
+```bash
+pnpm migrate
+```
+
+**Alternatief:** Als je geen MySQL gebruikt, worden JSON files automatisch gebruikt als fallback.
 
 #### 3.4 Kopieer Images
 
@@ -109,10 +128,30 @@ NODE_ENV=production
 PORT=3000
 
 # CORS Configuration (vervang met je eigen domain)
-ALLOWED_ORIGINS=https://zaanse-plankjesmaffia.nl,https://www.zaanse-plankjesmaffia.nl
+ALLOWED_ORIGINS=https://zaanse-plankjesmaffia.nl,https://www.zaanse-plankjesmaffia.nl,https://admin.zaanse-plankjesmaffia.nl,https://staging.zaanse-plankjesmaffia.nl
 
 # Admin Password (wijzig dit!)
 ADMIN_PASSWORD=je_sterke_wachtwoord_hier
+ADMIN_EMAIL=info@plankjesmaffia.nl
+
+# Database Configuration (MySQL - optioneel, JSON fallback beschikbaar)
+DB_HOST=localhost
+DB_USER=plankjes_user
+DB_PASSWORD=je_db_wachtwoord
+DB_NAME=plankjes_maffia
+DB_PORT=3306
+
+# Email (SMTP) Configuration (optioneel, mailto fallback beschikbaar)
+SMTP_HOST=smtp.hostinger.com
+SMTP_PORT=587
+SMTP_USER=info@plankjesmaffia.nl
+SMTP_PASSWORD=je_smtp_wachtwoord
+SMTP_FROM=info@plankjesmaffia.nl
+
+# Subdomains
+ADMIN_SUBDOMAIN=admin.plankjesmaffia.nl
+STAGING_SUBDOMAIN=staging.plankjesmaffia.nl
+API_SUBDOMAIN=api.plankjesmaffia.nl
 ```
 
 **Belangrijk:**
@@ -325,9 +364,11 @@ sudo systemctl start plankjes-maffia
 - [ ] HTTPS geconfigureerd (SSL certificaat)
 - [ ] CORS correct geconfigureerd (ALLOWED_ORIGINS)
 - [ ] Firewall geconfigureerd (alleen poort 80/443 open)
-- [ ] Regular backups ingesteld
+- [ ] Regular backups ingesteld (database + files)
 - [ ] File upload directory heeft juiste permissions
 - [ ] Rate limiting actief (standaard ingebouwd)
+- [ ] Database gebruiker heeft alleen benodigde rechten
+- [ ] SMTP wachtwoord is sterk en uniek
 
 ## Monitoring
 
@@ -367,7 +408,30 @@ sudo journalctl -u plankjes-maffia -f
 1. **Static Files**: Serve images via Nginx direct (niet via Node.js)
 2. **Caching**: Configureer browser caching voor static assets
 3. **CDN**: Overweeg CDN voor images (Cloudflare, AWS CloudFront, etc.)
-4. **Database**: Overweeg database migratie voor betere performance bij veel data
+4. **Database**: MySQL wordt automatisch gebruikt als geconfigureerd (betere performance)
+5. **Email**: SMTP wordt automatisch gebruikt als geconfigureerd (betere gebruikerservaring)
+
+## Nieuwe Features
+
+### MySQL Database
+- Automatische fallback naar JSON als database niet beschikbaar is
+- Betere performance en schaalbaarheid
+- Zie `DEPLOYMENT_MYSQL.md` voor setup instructies
+
+### Email Service (SMTP)
+- Automatische admin notificaties bij nieuwe orders
+- Newsletter bevestigingsemails
+- Contact formulier notificaties
+- Automatische fallback naar mailto links als SMTP niet geconfigureerd is
+
+### Subdomains
+- `admin.plankjesmaffia.nl` - Admin panel
+- `staging.plankjesmaffia.nl` - Staging omgeving
+- `api.plankjesmaffia.nl` - API documentation
+
+### Staging Omgeving
+- Aparte database voor testing
+- Zie `server/scripts/create-staging-schema.sql` voor setup
 
 ## Support
 

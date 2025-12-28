@@ -9,7 +9,9 @@
     "start": "NODE_ENV=production node dist/index.js",
     "preview": "vite preview --host",
     "check": "tsc --noEmit",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "migrate": "tsx server/scripts/migrate-to-mysql.ts",
+    "create-schema": "mysql -u $DB_USER -p$DB_PASSWORD $DB_NAME < server/scripts/create-schema.sql"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -51,8 +53,10 @@
     "input-otp": "^1.4.2",
     "lucide-react": "^0.453.0",
     "multer": "^2.0.2",
+    "mysql2": "^3.16.0",
     "nanoid": "^5.1.5",
     "next-themes": "^0.4.6",
+    "nodemailer": "^7.0.12",
     "react": "^19.2.1",
     "react-day-picker": "^9.11.1",
     "react-dom": "^19.2.1",
@@ -76,6 +80,7 @@
     "@types/google.maps": "^3.58.1",
     "@types/multer": "^2.0.0",
     "@types/node": "^24.7.0",
+    "@types/nodemailer": "^7.0.4",
     "@types/react": "^19.2.1",
     "@types/react-dom": "^19.2.1",
     "@vitejs/plugin-react": "^5.0.4",
