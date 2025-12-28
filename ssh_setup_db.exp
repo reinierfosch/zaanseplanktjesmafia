@@ -1,0 +1,57 @@
+#!/usr/bin/expect -f
+
+set timeout 60
+set host "46.202.156.148"
+set port "65002"
+set user "u127066462"
+set pass "uy4282o398ru23jd238hr28*G"
+set db_user "REDACTED_DB_USER"
+set db_pass "REDACTED_PASSWORD"
+set db_name "REDACTED_DB_NAME"
+
+spawn ssh -o StrictHostKeyChecking=no -p $port $user@$host
+
+expect {
+    "password:" {
+        send "$pass\r"
+        exp_continue
+    }
+    "Password:" {
+        send "$pass\r"
+        exp_continue
+    }
+    "$ " {
+    }
+    timeout {
+        exit 1
+    }
+    eof {
+        exit 1
+    }
+}
+
+send "cd domains/indigo-porpoise-872121.hostingersite.com/public_html\r"
+expect "$ "
+
+# Check if database exists and show tables
+send "mysql -u $db_user -p'$db_pass' $db_name -e 'SHOW TABLES;' 2>&1\r"
+expect "$ "
+
+# Import schema if tables don't exist
+send "mysql -u $db_user -p'$db_pass' $db_name < server/scripts/create-schema.sql 2>&1\r"
+expect "$ "
+
+# Verify tables were created
+send "mysql -u $db_user -p'$db_pass' $db_name -e 'SHOW TABLES;' 2>&1\r"
+expect "$ "
+
+# Check specific tables
+send "mysql -u $db_user -p'$db_pass' $db_name -e 'SELECT COUNT(*) as count FROM newsletter_subscriptions;' 2>&1\r"
+expect "$ "
+
+send "mysql -u $db_user -p'$db_pass' $db_name -e 'SELECT COUNT(*) as count FROM contact_submissions;' 2>&1\r"
+expect "$ "
+
+send "exit\r"
+expect eof
+
