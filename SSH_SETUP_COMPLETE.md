@@ -13,14 +13,24 @@
 ### ✅ **2. .env Bestand Aangemaakt**
 - Database credentials geconfigureerd:
   - `DB_HOST=localhost`
+<<<<<<< HEAD
   - `DB_USER=u127066462_admin`
   - `DB_PASSWORD=iI>3~|RMuwf&`
   - `DB_NAME=u127066462_plankjes`
+=======
+  - `DB_USER=<your_db_user>`
+  - `DB_PASSWORD=<your_db_password>`
+  - `DB_NAME=<your_db_name>`
+>>>>>>> 63cb53105062b99635d83e33815ba6aea7b8c0ff
   - `DB_PORT=3306`
 - Application settings:
   - `NODE_ENV=production`
   - `PORT=3000`
+<<<<<<< HEAD
   - `ADMIN_PASSWORD=admin123` ⚠️ **Wijzig dit in productie!**
+=======
+  - `ADMIN_PASSWORD=<your_admin_password>` ⚠️ **Wijzig dit in productie!**
+>>>>>>> 63cb53105062b99635d83e33815ba6aea7b8c0ff
   - `ADMIN_EMAIL=info@plankjesmaffia.nl`
   - `ALLOWED_ORIGINS` geconfigureerd
 
@@ -41,7 +51,11 @@
 
 ### **2. Test Admin Login**
 1. Ga naar `/admin`
+<<<<<<< HEAD
 2. Log in met wachtwoord: `admin123`
+=======
+2. Log in met wachtwoord: `<your_admin_password>`
+>>>>>>> 63cb53105062b99635d83e33815ba6aea7b8c0ff
 3. Het zou moeten werken! ✅
 
 ### **3. Test Database Connectie**
@@ -91,7 +105,11 @@ tail -f .builds/logs/error.log
 
 ### **Test Database Connectie:**
 ```bash
+<<<<<<< HEAD
 mysql -u u127066462_admin -p'iI>3~|RMuwf&' u127066462_plankjes -e "SELECT COUNT(*) FROM newsletter_subscriptions;"
+=======
+mysql -u <your_db_user> -p'<your_db_password>' <your_db_name> -e "SELECT COUNT(*) FROM newsletter_subscriptions;"
+>>>>>>> 63cb53105062b99635d83e33815ba6aea7b8c0ff
 ```
 
 ### **Herstart App (als nodig):**
