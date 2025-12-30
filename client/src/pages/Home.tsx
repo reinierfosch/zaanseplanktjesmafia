@@ -5,6 +5,8 @@ import { HomeTab } from "@/components/tabs/HomeTab";
 import { GalleryTab } from "@/components/tabs/GalleryTab";
 import { WorkshopsTab } from "@/components/tabs/WorkshopsTab";
 import { ContactTab } from "@/components/tabs/ContactTab";
+import { PartnersTab } from "@/components/tabs/PartnersTab";
+import { CollaborationSection } from "@/components/CollaborationSection";
 
 /**
  * De Zaanse Plankjes Maffia - Art on Wooden Planks
@@ -49,7 +51,13 @@ export default function Home() {
         {activeTab === "gallery" && <GalleryTab />}
         {activeTab === "workshops" && <WorkshopsTab />}
         {activeTab === "contact" && <ContactTab onSubmitNewsletter={handleNewsletterSubmit} />}
+        {activeTab === "partners" && <PartnersTab />}
       </div>
+
+      {/* Footer with Collaboration Section */}
+      <footer className="relative z-50">
+        <CollaborationSection />
+      </footer>
     </div>
   );
 }

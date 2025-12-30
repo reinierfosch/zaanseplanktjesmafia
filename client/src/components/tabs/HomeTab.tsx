@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ShoppingCart } from "lucide-react";
 import { TabId } from "@/types";
+import { SilhouetteToVideo } from "@/components/SilhouetteToVideo";
 
 interface HomeTabProps {
   onNavigate: (tab: TabId) => void;
@@ -25,19 +26,22 @@ export function HomeTab({ onNavigate }: HomeTabProps) {
         <div className="absolute inset-0 bg-black/50"></div>
       </div>
 
+      {/* Silhouette to Video Animation - Right Side */}
+      <div className="absolute right-0 top-0 bottom-0 w-1/3 md:w-1/2 lg:w-2/5 z-10">
+        <SilhouetteToVideo />
+      </div>
+
       {/* Content */}
-      <div className="container relative z-10 py-20">
+      <div className="container relative z-30 py-20">
         <div className="max-w-3xl space-y-8">
           {/* Main Headline */}
           <h1 className="text-7xl md:text-8xl font-black leading-tight text-white drop-shadow-lg">
-            KUNST OP
-            <br />
-            <span className="text-yellow-400">PLANKJES</span>
+            ZAANSE-PLANKJESMAFFIA.NL
           </h1>
 
           {/* Subheadline */}
           <p className="text-2xl md:text-3xl font-bold text-white drop-shadow-md max-w-2xl leading-tight">
-            Unieke kunstwerken op houten planken. Handgemaakt, origineel, en klaar om aan je muur te hangen.
+            we doen kunstige dingen op hout
           </p>
 
           {/* Decorative Line */}

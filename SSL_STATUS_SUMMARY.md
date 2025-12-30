@@ -75,3 +75,4 @@ ALLOWED_ORIGINS=https://zaanse-plankjesmaffia.nl,https://www.zaanse-plankjesmaff
 **Status**: ✅ DNS correct, ✅ SSL certificaat geldig, ⚠️ Check SSL bij Hostinger
 
 
+

@@ -10,7 +10,8 @@ export function TabNavigation({ activeTab, onTabChange }: TabNavigationProps) {
     { id: "home", label: "HOME" },
     { id: "gallery", label: "KUNSTGALERIE" },
     { id: "workshops", label: "WORKSHOPS" },
-    { id: "contact", label: "CONTACT" }
+    { id: "contact", label: "CONTACT" },
+    { id: "partners", label: "PARTNERS" }
   ];
 
   return (

@@ -1,0 +1,49 @@
+#!/usr/bin/expect -f
+
+set timeout 30
+set host "46.202.156.148"
+set port "65002"
+set user "u127066462"
+set password "uy4282o398ru23jd238hr28*G"
+set app_path "/home/u127066462/domains/zaanse-plankjesmaffia.nl/public_html"
+
+spawn ssh -p $port $user@$host
+
+expect {
+    "password:" {
+        send "$password\r"
+    }
+    "yes/no" {
+        send "yes\r"
+        expect "password:"
+        send "$password\r"
+    }
+}
+
+expect "$ "
+
+# Navigate to app directory
+send "cd $app_path\r"
+expect "$ "
+
+# Check Passenger error logs
+send "echo '=== Checking Passenger error logs ==='\r"
+expect "$ "
+send "tail -50 .builds/logs/error.log 2>/dev/null || echo 'No error.log found'\r"
+expect "$ "
+
+# Check Passenger access logs
+send "echo '=== Checking Passenger access logs ==='\r"
+expect "$ "
+send "tail -20 .builds/logs/access.log 2>/dev/null || echo 'No access.log found'\r"
+expect "$ "
+
+# Check if Passenger can see the app
+send "echo '=== Checking Passenger status ==='\r"
+expect "$ "
+send "passenger-status 2>&1 | head -20 || echo 'passenger-status not available'\r"
+expect "$ "
+
+send "exit\r"
+expect eof
+
