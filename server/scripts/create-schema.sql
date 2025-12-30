@@ -55,9 +55,12 @@ CREATE TABLE IF NOT EXISTS contact_submissions (
   email VARCHAR(255) NOT NULL,
   subject VARCHAR(255),
   message TEXT NOT NULL,
+  status ENUM('new', 'read', 'replied', 'archived') DEFAULT 'new',
+  read_at TIMESTAMP NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   INDEX idx_email (email),
-  INDEX idx_created_at (created_at)
+  INDEX idx_created_at (created_at),
+  INDEX idx_status (status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Admin sessions table
