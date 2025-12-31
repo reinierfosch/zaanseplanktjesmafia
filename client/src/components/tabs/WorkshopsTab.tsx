@@ -1,7 +1,66 @@
-import { Button } from "@/components/ui/button";
-import { workshops } from "@/data/workshops";
+import { useState, useEffect } from "react";
+
+/**
+ * Grappige "onder constructie" zinnetjes met maffia- en plankjes-thema's
+ */
+const constructionMessages = [
+  "Deze workshop wordt nog 'in elkaar getimmerd'...",
+  "We zijn nog bezig met het 'planken' van deze workshop.",
+  "Deze workshop zit nog 'in de houtbewerking'.",
+  "We 'schaven' nog aan deze workshop...",
+  "Deze workshop wordt nog 'gezaagd en geschuurd'.",
+  "We zijn nog bezig met het 'polijsten' van deze workshop.",
+  "Deze workshop zit nog 'in de zaagbank'.",
+  "We 'lijmen' nog de laatste details aan elkaar...",
+  "Deze workshop wordt nog 'geverfd en afgewerkt'.",
+  "We zijn nog bezig met het 'fine-tunen' van deze workshop.",
+  "Deze workshop zit nog 'in de werkplaats'.",
+  "We 'boren' nog de laatste gaten...",
+  "Deze workshop wordt nog 'geassembleerd'.",
+  "We zijn nog bezig met het 'testen' van deze workshop.",
+  "Deze workshop zit nog 'in de maak'.",
+  "We 'hameren' nog de laatste details erin...",
+  "Deze workshop wordt nog 'geperfectioneerd'.",
+  "We zijn nog bezig met het 'afwerken' van deze workshop.",
+  "Deze workshop zit nog 'in de productie'.",
+  "We 'slaan' nog de laatste spijkers erin...",
+];
+
+const workshopTopics = [
+  "Plankjes Branding 101",
+  "Houtbewerking voor Beginners",
+  "Maffia-stijl Schilderen",
+  "Plankjes Graffiti Workshop",
+  "Houten Canvas Technieken",
+  "Maffia Logo Design",
+  "Plankjes Custom Art",
+  "Houtverf & Finishing",
+  "Maffia Typografie",
+  "Plankjes Portret Workshop",
+];
 
 export function WorkshopsTab() {
+  const [currentMessage, setCurrentMessage] = useState<string>("");
+  const [currentTopics, setCurrentTopics] = useState<string[]>([]);
+
+  useEffect(() => {
+    // Kies een random bericht
+    const randomMessage = constructionMessages[Math.floor(Math.random() * constructionMessages.length)];
+    setCurrentMessage(randomMessage);
+
+    // Kies 3 random workshop onderwerpen
+    const shuffled = [...workshopTopics].sort(() => 0.5 - Math.random());
+    setCurrentTopics(shuffled.slice(0, 3));
+
+    // Verander het bericht elke 5 seconden
+    const interval = setInterval(() => {
+      const newMessage = constructionMessages[Math.floor(Math.random() * constructionMessages.length)];
+      setCurrentMessage(newMessage);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section 
       className="relative min-h-screen py-24 bg-black text-white"
@@ -19,39 +78,42 @@ export function WorkshopsTab() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {workshops.map((workshop) => (
-            <article 
-              key={workshop.id}
-              className="industrial-box p-8 space-y-4 hover:shadow-2xl transition-all bg-gray-900 border-4 border-white"
-            >
-              <h3 className="text-2xl font-black uppercase text-yellow-400">{workshop.title}</h3>
-              <p className="font-mono text-sm leading-relaxed text-gray-300">
-                {workshop.desc}
+        {/* Onder Constructie Sectie */}
+        <div className="space-y-8">
+          <div className="industrial-box p-12 bg-gray-900 border-4 border-yellow-400 text-center">
+            <div className="mb-6">
+              <h3 className="text-4xl md:text-5xl font-black uppercase text-yellow-400 mb-4">
+                🚧 ONDER CONSTRUCTIE 🚧
+              </h3>
+              <p className="text-xl md:text-2xl font-mono text-white animate-pulse">
+                {currentMessage}
               </p>
-              <div className="space-y-2">
-                <p className="text-xs font-bold uppercase text-gray-400" aria-label={`Duur: ${workshop.duration}`}>
-                  ⏱ {workshop.duration}
-                </p>
-                <ul className="text-xs space-y-1 text-gray-400" aria-label="Inbegrepen features">
-                  {workshop.features.map((feature, i) => (
-                    <li key={i}>✓ {feature}</li>
-                  ))}
-                </ul>
+            </div>
+            
+            <div className="mt-8 pt-8 border-t-4 border-white">
+              <p className="text-lg font-bold uppercase text-gray-300 mb-4">
+                Binnenkort beschikbaar:
+              </p>
+              <div className="grid md:grid-cols-3 gap-4">
+                {currentTopics.map((topic, index) => (
+                  <div
+                    key={index}
+                    className="bg-black/50 p-4 border-2 border-white/20 rounded-lg"
+                  >
+                    <p className="font-mono text-sm text-yellow-400 font-bold">
+                      {topic}
+                    </p>
+                  </div>
+                ))}
               </div>
-              <div className="pt-4 border-t-2 border-white">
-                <p className="text-2xl font-black text-yellow-400 mb-4" aria-label={`Prijs: ${workshop.price}`}>
-                  {workshop.price}
-                </p>
-                <Button
-                  className="w-full bg-yellow-400 text-black hover:bg-yellow-300 font-black py-3 uppercase"
-                  aria-label={`Inschrijven voor ${workshop.title}`}
-                >
-                  Inschrijven
-                </Button>
-              </div>
-            </article>
-          ))}
+            </div>
+
+            <div className="mt-8 pt-8 border-t-4 border-white">
+              <p className="text-sm font-mono text-gray-400 italic">
+                "We werken er hard aan om deze workshops 'in de steigers' te zetten!"
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

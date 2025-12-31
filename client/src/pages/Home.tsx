@@ -16,6 +16,7 @@ import { CollaborationSection } from "@/components/CollaborationSection";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<TabId>("home");
+  const [showHomeIcon, setShowHomeIcon] = useState(false);
 
   const handleNewsletterSubmit = async (email: string, name?: string) => {
     const response = await fetch("/api/newsletter", {
@@ -43,11 +44,20 @@ export default function Home() {
       </div>
 
       {/* Tab Navigation */}
-      <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
+      <TabNavigation 
+        activeTab={activeTab} 
+        onTabChange={setActiveTab}
+        showHomeIcon={showHomeIcon}
+      />
 
       {/* Tab Content */}
       <div className="flex-1 overflow-y-auto">
-        {activeTab === "home" && <HomeTab onNavigate={setActiveTab} />}
+        {activeTab === "home" && (
+          <HomeTab 
+            onNavigate={setActiveTab}
+            onZoomComplete={() => setShowHomeIcon(true)}
+          />
+        )}
         {activeTab === "gallery" && <GalleryTab />}
         {activeTab === "workshops" && <WorkshopsTab />}
         {activeTab === "contact" && <ContactTab onSubmitNewsletter={handleNewsletterSubmit} />}

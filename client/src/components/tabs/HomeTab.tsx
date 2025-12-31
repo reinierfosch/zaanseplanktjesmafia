@@ -5,9 +5,10 @@ import { SilhouetteToVideo } from "@/components/SilhouetteToVideo";
 
 interface HomeTabProps {
   onNavigate: (tab: TabId) => void;
+  onZoomComplete?: () => void;
 }
 
-export function HomeTab({ onNavigate }: HomeTabProps) {
+export function HomeTab({ onNavigate, onZoomComplete }: HomeTabProps) {
   return (
     <section 
       className="relative min-h-screen flex items-center overflow-hidden"
@@ -28,7 +29,7 @@ export function HomeTab({ onNavigate }: HomeTabProps) {
 
       {/* Silhouette to Video Animation - Right Side */}
       <div className="absolute right-0 top-0 bottom-0 w-1/3 md:w-1/2 lg:w-2/5 z-10">
-        <SilhouetteToVideo />
+        <SilhouetteToVideo onZoomToButton={onZoomComplete} />
       </div>
 
       {/* Content */}

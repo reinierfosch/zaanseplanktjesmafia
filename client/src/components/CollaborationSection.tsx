@@ -35,6 +35,28 @@ export function CollaborationSection() {
             {/* Separator */}
             <div className="h-20 w-0.5 bg-yellow-400/30 hidden md:block" aria-hidden="true" />
 
+            {/* Zaanstadsdichter */}
+            <a
+              href="https://zaanstadsdichter.nl"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex flex-col items-center gap-4 hover:opacity-90 transition-all hover:scale-105 min-w-[200px]"
+            >
+              <div className="bg-white/5 p-4 rounded-lg transition-colors">
+                <img
+                  src="/images/logo-zaanstadsdichter.jpg"
+                  alt="Zaanstadsdichter"
+                  className="h-16 md:h-20 w-auto object-contain opacity-90 group-hover:opacity-100 transition-opacity"
+                />
+              </div>
+              <span className="text-white font-black text-xs md:text-sm uppercase tracking-wider text-center max-w-[200px]">
+                ZAANSTADSDICHTER.NL
+              </span>
+            </a>
+
+            {/* Separator */}
+            <div className="h-20 w-0.5 bg-yellow-400/30 hidden md:block" aria-hidden="true" />
+
             {/* Roshism - Using their actual logo, cropped to show text larger */}
             <a
               href="https://roshism.com"
