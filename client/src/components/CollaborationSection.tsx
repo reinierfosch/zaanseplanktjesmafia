@@ -20,7 +20,7 @@ export function CollaborationSection() {
               rel="noopener noreferrer"
               className="group flex flex-col items-center gap-4 hover:opacity-90 transition-all hover:scale-105 min-w-[200px]"
             >
-              <div className="bg-white/5 p-4 rounded-lg group-hover:border-white/20 transition-colors">
+              <div className="bg-white/5 p-4 rounded-lg transition-colors">
                 <img
                   src="/images/logo-reinier-fosch.webp"
                   alt="Reinier Fosch - Reintje aan de Praat"
@@ -42,14 +42,13 @@ export function CollaborationSection() {
               rel="noopener noreferrer"
               className="group flex flex-col items-center gap-4 hover:opacity-90 transition-all hover:scale-105 min-w-[200px]"
             >
-              <div className="bg-white/5 p-4 rounded-lg border border-white/10 group-hover:border-white/20 transition-colors flex items-center justify-center overflow-hidden h-28 md:h-36 w-56 md:w-72">
+              <div className="bg-white/5 p-4 rounded-lg transition-colors flex items-center justify-center overflow-hidden h-28 md:h-36 w-56 md:w-72">
                 <img
                   src="/images/roshism-logo.png"
                   alt="ROSHISM"
-                  className="h-full w-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+                  className="h-full w-full object-cover object-center opacity-90 group-hover:opacity-100 transition-opacity"
                   style={{
-                    objectPosition: 'center 40%',
-                    transform: 'scale(1.3)',
+                    objectPosition: 'center 30%',
                   }}
                 />
               </div>
