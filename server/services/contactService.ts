@@ -84,4 +84,3 @@ export async function markContactSubmissionAsRead(
 ): Promise<ContactSubmission | null> {
   return updateContactSubmissionStatus(id, "read");
 }
-
