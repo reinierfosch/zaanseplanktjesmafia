@@ -34,7 +34,7 @@ export interface Feature {
   desc: string;
 }
 
-export type TabId = "home" | "gallery" | "workshops" | "contact";
+export type TabId = "home" | "gallery" | "workshops" | "contact" | "partners";
 
 // Order types - includes all product types
 export type OrderType = "original" | "derivative" | "custom" | ProductType;

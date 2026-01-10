@@ -5,6 +5,8 @@ import { HomeTab } from "@/components/tabs/HomeTab";
 import { GalleryTab } from "@/components/tabs/GalleryTab";
 import { WorkshopsTab } from "@/components/tabs/WorkshopsTab";
 import { ContactTab } from "@/components/tabs/ContactTab";
+import { PartnersTab } from "@/components/tabs/PartnersTab";
+import { CollaborationSection } from "@/components/CollaborationSection";
 
 /**
  * De Zaanse Plankjes Maffia - Art on Wooden Planks
@@ -14,6 +16,7 @@ import { ContactTab } from "@/components/tabs/ContactTab";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<TabId>("home");
+  const [showHomeIcon, setShowHomeIcon] = useState(false);
 
   const handleNewsletterSubmit = async (email: string, name?: string) => {
     const response = await fetch("/api/newsletter", {
@@ -41,15 +44,30 @@ export default function Home() {
       </div>
 
       {/* Tab Navigation */}
-      <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
+      <TabNavigation 
+        activeTab={activeTab} 
+        onTabChange={setActiveTab}
+        showHomeIcon={showHomeIcon}
+      />
 
       {/* Tab Content */}
       <div className="flex-1 overflow-y-auto">
-        {activeTab === "home" && <HomeTab onNavigate={setActiveTab} />}
+        {activeTab === "home" && (
+          <HomeTab 
+            onNavigate={setActiveTab}
+            onZoomComplete={() => setShowHomeIcon(true)}
+          />
+        )}
         {activeTab === "gallery" && <GalleryTab />}
         {activeTab === "workshops" && <WorkshopsTab />}
         {activeTab === "contact" && <ContactTab onSubmitNewsletter={handleNewsletterSubmit} />}
+        {activeTab === "partners" && <PartnersTab />}
       </div>
+
+      {/* Footer with Collaboration Section */}
+      <footer className="relative z-50">
+        <CollaborationSection />
+      </footer>
     </div>
   );
 }

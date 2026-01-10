@@ -164,3 +164,4 @@ curl https://indigo-porpoise-872121.hostingersite.com/api/artworks
 **Action Required**: ⚠️ Update database credentials in `.env`
 
 
+

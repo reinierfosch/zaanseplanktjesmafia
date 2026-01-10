@@ -3,6 +3,11 @@ import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { LoginForm } from "@/components/admin/LoginForm";
 import { ArtworkEditor, ArtworkList } from "@/components/admin/ArtworkEditor";
+import { AdminNavigation, type AdminTab } from "@/components/admin/AdminNavigation";
+import { Dashboard } from "@/components/admin/Dashboard";
+import { OrdersList } from "@/components/admin/OrdersList";
+import { NewsletterList } from "@/components/admin/NewsletterList";
+import { ContactList } from "@/components/admin/ContactList";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { Artwork } from "@/types";
 import { LogOut, Plus } from "lucide-react";
@@ -10,16 +15,17 @@ import { LogOut, Plus } from "lucide-react";
 export default function Admin() {
   const [, setLocation] = useLocation();
   const { isAuthenticated, isLoading, logout, sessionId } = useAdminAuth();
+  const [activeTab, setActiveTab] = useState<AdminTab>("dashboard");
   const [artworks, setArtworks] = useState<Artwork[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingArtwork, setEditingArtwork] = useState<Artwork | undefined>();
   const [showEditor, setShowEditor] = useState(false);
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && activeTab === "artworks") {
       fetchArtworks();
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, activeTab]);
 
   const fetchArtworks = async () => {
     try {
@@ -54,11 +60,9 @@ export default function Admin() {
   };
 
   const handleArtworkUpdate = (updatedArtwork: Artwork) => {
-    // Update the artwork in the list
     setArtworks((prev) =>
       prev.map((a) => (a.id === updatedArtwork.id ? updatedArtwork : a))
     );
-    // Update the editing artwork if it's the same one
     if (editingArtwork?.id === updatedArtwork.id) {
       setEditingArtwork(updatedArtwork);
     }
@@ -113,46 +117,59 @@ export default function Admin() {
           </Button>
         </div>
 
-        {showEditor ? (
-          <div className="industrial-box p-8">
-            <h2 className="text-3xl font-black uppercase mb-6">
-              {editingArtwork ? "Kunstwerk bewerken" : "Nieuw kunstwerk"}
-            </h2>
-            <ArtworkEditor
-              artwork={editingArtwork}
-              onSave={handleSave}
-              onCancel={handleCancel}
-              onArtworkUpdate={handleArtworkUpdate}
-            />
-          </div>
-        ) : (
-          <div className="space-y-6">
-            <div className="flex justify-end">
-              <Button
-                onClick={handleCreate}
-                className="bg-black text-white hover:bg-gray-800 font-black"
-              >
-                <Plus className="mr-2" />
-                Nieuw Kunstwerk
-              </Button>
-            </div>
+        <AdminNavigation activeTab={activeTab} onTabChange={setActiveTab} />
 
-            {loading ? (
-              <p className="font-mono text-center py-12">Kunstwerken laden...</p>
-            ) : (
+        {activeTab === "dashboard" && <Dashboard />}
+
+        {activeTab === "artworks" && (
+          <>
+            {showEditor ? (
               <div className="industrial-box p-8">
-                <h2 className="text-3xl font-black uppercase mb-6">Kunstwerken</h2>
-                <ArtworkList
-                  artworks={artworks}
-                  onEdit={handleEdit}
-                  onDelete={handleDelete}
+                <h2 className="text-3xl font-black uppercase mb-6">
+                  {editingArtwork ? "Kunstwerk bewerken" : "Nieuw kunstwerk"}
+                </h2>
+                <ArtworkEditor
+                  artwork={editingArtwork}
+                  onSave={handleSave}
+                  onCancel={handleCancel}
+                  onArtworkUpdate={handleArtworkUpdate}
                 />
               </div>
+            ) : (
+              <div className="space-y-6">
+                <div className="flex justify-end">
+                  <Button
+                    onClick={handleCreate}
+                    className="bg-black text-white hover:bg-gray-800 font-black"
+                  >
+                    <Plus className="mr-2" />
+                    Nieuw Kunstwerk
+                  </Button>
+                </div>
+
+                {loading ? (
+                  <p className="font-mono text-center py-12">Kunstwerken laden...</p>
+                ) : (
+                  <div className="industrial-box p-8">
+                    <h2 className="text-3xl font-black uppercase mb-6">Kunstwerken</h2>
+                    <ArtworkList
+                      artworks={artworks}
+                      onEdit={handleEdit}
+                      onDelete={handleDelete}
+                    />
+                  </div>
+                )}
+              </div>
             )}
-          </div>
+          </>
         )}
+
+        {activeTab === "orders" && <OrdersList />}
+
+        {activeTab === "newsletter" && <NewsletterList />}
+
+        {activeTab === "contact" && <ContactList />}
       </div>
     </div>
   );
 }
-
