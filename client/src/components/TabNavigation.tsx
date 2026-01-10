@@ -17,10 +17,18 @@ export function TabNavigation({ activeTab, onTabChange, showHomeIcon = false }: 
 
   return (
     <div 
-      className="bg-black border-b-4 border-foreground flex overflow-x-auto"
+      className="bg-black border-b-4 border-foreground flex overflow-x-auto items-center"
       role="tablist"
       aria-label="Main navigation"
     >
+      {/* Logo */}
+      <div className="flex-shrink-0 px-4 py-2 border-r-4 border-foreground">
+        <img
+          src="/images/logo-plankjesmaffia.svg"
+          alt="De Zaanse Plankjes Maffia"
+          className="logo-plankjesmaffia"
+        />
+      </div>
       {tabs.map((tab) => (
         <button
           key={tab.id}
@@ -29,9 +37,9 @@ export function TabNavigation({ activeTab, onTabChange, showHomeIcon = false }: 
           aria-selected={activeTab === tab.id}
           aria-controls={`tabpanel-${tab.id}`}
           id={`tab-${tab.id}`}
-          className={`px-8 py-4 font-black text-lg uppercase whitespace-nowrap border-r-4 border-foreground transition-all focus:outline-none focus:ring-4 focus:ring-yellow-400 flex items-center gap-2 ${
+          className={`px-8 py-4 font-black text-lg uppercase whitespace-nowrap border-r-4 border-foreground transition-all focus:outline-none focus:ring-4 focus:ring-primary flex items-center gap-2 ${
             activeTab === tab.id
-              ? "bg-yellow-400 text-black"
+              ? "bg-primary text-white"
               : "bg-black text-white hover:bg-gray-800"
           }`}
         >

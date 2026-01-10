@@ -26,31 +26,13 @@ const constructionMessages = [
   "We 'slaan' nog de laatste spijkers erin...",
 ];
 
-const workshopTopics = [
-  "Plankjes Branding 101",
-  "Houtbewerking voor Beginners",
-  "Maffia-stijl Schilderen",
-  "Plankjes Graffiti Workshop",
-  "Houten Canvas Technieken",
-  "Maffia Logo Design",
-  "Plankjes Custom Art",
-  "Houtverf & Finishing",
-  "Maffia Typografie",
-  "Plankjes Portret Workshop",
-];
-
 export function WorkshopsTab() {
   const [currentMessage, setCurrentMessage] = useState<string>("");
-  const [currentTopics, setCurrentTopics] = useState<string[]>([]);
 
   useEffect(() => {
     // Kies een random bericht
     const randomMessage = constructionMessages[Math.floor(Math.random() * constructionMessages.length)];
     setCurrentMessage(randomMessage);
-
-    // Kies 3 random workshop onderwerpen
-    const shuffled = [...workshopTopics].sort(() => 0.5 - Math.random());
-    setCurrentTopics(shuffled.slice(0, 3));
 
     // Verander het bericht elke 5 seconden
     const interval = setInterval(() => {
@@ -90,24 +72,6 @@ export function WorkshopsTab() {
               </p>
             </div>
             
-            <div className="mt-8 pt-8 border-t-4 border-white">
-              <p className="text-lg font-bold uppercase text-gray-300 mb-4">
-                Binnenkort beschikbaar:
-              </p>
-              <div className="grid md:grid-cols-3 gap-4">
-                {currentTopics.map((topic, index) => (
-                  <div
-                    key={index}
-                    className="bg-black/50 p-4 border-2 border-white/20 rounded-lg"
-                  >
-                    <p className="font-mono text-sm text-yellow-400 font-bold">
-                      {topic}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
             <div className="mt-8 pt-8 border-t-4 border-white">
               <p className="text-sm font-mono text-gray-400 italic">
                 "We werken er hard aan om deze workshops 'in de steigers' te zetten!"

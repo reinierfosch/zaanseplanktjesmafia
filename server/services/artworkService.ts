@@ -29,14 +29,16 @@ const BASE_DIR = process.env.NODE_ENV === "production"
   ? path.resolve(__dirname, "..", "..")
   : path.resolve(__dirname, "..");
 
-const UPLOADS_DIR = path.resolve(BASE_DIR, "server", "uploads", "digital");
+const UPLOADS_DIR = path.resolve(BASE_DIR, "uploads", "digital");
 
 // Use database if available, otherwise fallback to JSON
 const USE_DATABASE = process.env.DB_HOST && process.env.DB_NAME;
 
 // Fallback: Read artworks from JSON file
 async function getArtworksFromJSON(): Promise<Artwork[]> {
-  const DATA_DIR = path.resolve(BASE_DIR, "server", "data");
+  const DATA_DIR = process.env.NODE_ENV === "production"
+    ? path.resolve(BASE_DIR, "server", "data")
+    : path.resolve(BASE_DIR, "data");
   const ARTWORKS_FILE = path.join(DATA_DIR, "artworks.json");
   
   try {

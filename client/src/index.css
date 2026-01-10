@@ -4,10 +4,6 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -27,105 +23,125 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
 }
 
 :root {
-  /* Industrial Craft Aesthetic */
-  --primary: #000000;
-  --primary-foreground: #ffffff;
-  --secondary: #ff8c00;
-  --secondary-foreground: #ffffff;
-  --accent: #ffff00;
-  --accent-foreground: #000000;
-  --chart-1: #ff8c00;
-  --chart-2: #ffff00;
-  --chart-3: #333333;
-  --chart-4: #666666;
-  --chart-5: #999999;
-  --radius: 0px;
+  /* --- Zaanse Plankjes Maffia Palet --- */
   
-  /* Kraft paper / raw materials palette */
-  --background: #f5f1ed;
-  --foreground: #1a1a1a;
-  --card: #ffffff;
-  --card-foreground: #1a1a1a;
-  --popover: #ffffff;
-  --popover-foreground: #1a1a1a;
-  --secondary: #ff8c00;
+  /* Zaans Groen (De basis) */
+  --zaans-groen: #325C44; 
+  --zaans-groen-licht: #4A7A5E;
+
+  /* Potlood / Houtskool tinten */
+  --charcoal-dark: #1a1a1a;
+  --charcoal-light: #4a4a4a;
+  --pencil-gray: #757575;
+
+  /* Papier achtergrond */
+  --paper: #f9f7f2; 
+
+  --primary: var(--zaans-groen);
+  --primary-foreground: #ffffff;
+  
+  --secondary: var(--pencil-gray);
   --secondary-foreground: #ffffff;
-  --muted: #d4ccc4;
-  --muted-foreground: #666666;
-  --accent: #ffff00;
-  --accent-foreground: #000000;
-  --destructive: #dc2626;
+  
+  --accent: var(--zaans-groen-licht);
+  --accent-foreground: #ffffff;
+  
+  --background: var(--paper);
+  --foreground: var(--charcoal-dark);
+  
+  --card: #ffffff;
+  --card-foreground: var(--charcoal-dark);
+  
+  --popover: #ffffff;
+  --popover-foreground: var(--charcoal-dark);
+  
+  --muted: #e5e5e5;
+  --muted-foreground: var(--pencil-gray);
+  
+  --destructive: var(--charcoal-dark);
   --destructive-foreground: #ffffff;
-  --border: #d4ccc4;
+  
+  --border: var(--charcoal-light);
   --input: #ffffff;
-  --ring: #ff8c00;
-  --sidebar: #ffffff;
-  --sidebar-foreground: #1a1a1a;
-  --sidebar-accent: #ff8c00;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #d4ccc4;
-  --sidebar-ring: #ff8c00;
+  --ring: var(--zaans-groen);
+  
+  --radius: 2px;
 }
 
 .dark {
-  --primary: #000000;
+  /* Dark mode: Schoolbord effect */
+  --paper: #1a1a1a;
+  --zaans-groen: #325C44;
+  
+  --background: var(--paper);
+  --foreground: #f0f0f0; 
+  
+  --primary: var(--zaans-groen);
   --primary-foreground: #ffffff;
-  --sidebar-primary: #ff8c00;
-  --sidebar-primary-foreground: #ffffff;
-  --background: #1a1a1a;
-  --foreground: #f5f1ed;
-  --card: #2a2a2a;
-  --card-foreground: #f5f1ed;
-  --popover: #2a2a2a;
-  --popover-foreground: #f5f1ed;
-  --secondary: #ff8c00;
+  
+  --card: #262626;
+  --card-foreground: #f0f0f0;
+  
+  --popover: #262626;
+  --popover-foreground: #f0f0f0;
+  
+  --secondary: #555555;
   --secondary-foreground: #ffffff;
-  --muted: #444444;
-  --muted-foreground: #b0a89a;
-  --accent: #ffff00;
-  --accent-foreground: #000000;
-  --destructive: #ff4444;
-  --destructive-foreground: #ffffff;
-  --border: #444444;
-  --input: #333333;
-  --ring: #ff8c00;
-  --chart-1: #ff8c00;
-  --chart-2: #ffff00;
-  --chart-3: #cccccc;
-  --chart-4: #999999;
-  --chart-5: #666666;
-  --sidebar: #2a2a2a;
-  --sidebar-foreground: #f5f1ed;
-  --sidebar-accent: #ff8c00;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #444444;
-  --sidebar-ring: #ff8c00;
+  
+  --muted: #333333;
+  --muted-foreground: #a0a0a0;
+  
+  --border: #555555;
+  --input: #262626;
+  --ring: var(--zaans-groen);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+  
   body {
     @apply bg-background text-foreground;
-    font-family: 'Courier New', monospace;
+    font-family: 'Caveat', cursive; /* Potlood tekst */
+    font-size: 1.25rem;
+    /* Papier ruis textuur */
+    background-image: 
+      url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' opacity='0.4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='transparent'/%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
   }
+
+  /* Typography - Sketch Style */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Amatic SC', cursive;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  
+  h1 {
+    @apply text-6xl md:text-8xl;
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.1); 
+  }
+  
+  h2 { @apply text-4xl md:text-6xl; }
+  h3 { @apply text-3xl md:text-4xl; }
+  
+  p {
+    @apply leading-relaxed;
+    font-weight: 500;
+  }
+
+  button {
+    font-family: 'Amatic SC', cursive;
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+  }
+
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
   [type="button"]:not(:disabled),
@@ -136,35 +152,6 @@
   input[type="checkbox"]:not(:disabled),
   input[type="radio"]:not(:disabled) {
     @apply cursor-pointer;
-  }
-  
-  /* Typography - Industrial Craft Style */
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Impact', 'Arial Black', sans-serif;
-    font-weight: 900;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    line-height: 1.1;
-  }
-  
-  h1 {
-    @apply text-5xl md:text-7xl lg:text-8xl;
-    font-weight: 900;
-  }
-  
-  h2 {
-    @apply text-4xl md:text-5xl lg:text-6xl;
-    font-weight: 900;
-  }
-  
-  h3 {
-    @apply text-2xl md:text-3xl;
-    font-weight: 900;
-  }
-  
-  p {
-    @apply text-base md:text-lg leading-relaxed;
-    font-family: 'Courier New', monospace;
   }
 }
 
@@ -177,134 +164,115 @@
     padding-right: 1rem;
   }
 
-  .flex {
-    min-height: 0;
-    min-width: 0;
+  @media (min-width: 640px) { .container { padding-left: 1.5rem; padding-right: 1.5rem; } }
+  @media (min-width: 1024px) { .container { padding-left: 2rem; padding-right: 2rem; max-width: 1280px; } }
+
+  /* --- Zaanse Styling --- */
+  
+  /* Geschetste kaders (vervangt industrial-box) */
+  .sketch-box, .industrial-box {
+    @apply bg-card border-2 border-foreground/80;
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    box-shadow: 
+      2px 3px 0px rgba(0,0,0,0.1),
+      6px 6px 0px rgba(50, 92, 68, 0.2);
+    transition: all 0.3s ease;
   }
 
-  @media (min-width: 640px) {
-    .container {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
+  .sketch-box:hover, .industrial-box:hover {
+    transform: translateY(-2px) rotate(0.5deg);
+    box-shadow: 
+      3px 4px 0px rgba(0,0,0,0.2),
+      8px 8px 0px var(--zaans-groen);
   }
 
-  @media (min-width: 1024px) {
-    .container {
-      padding-left: 2rem;
-      padding-right: 2rem;
-      max-width: 1280px;
-    }
-  }
-  
-  /* Industrial Craft Components */
-  .kraft-border {
-    @apply border-4 border-foreground;
-    border-style: solid;
-  }
-  
-  .kraft-texture {
-    background-image: 
-      url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100' height='100' fill='%23f5f1ed' filter='url(%23noise)' opacity='0.1'/%3E%3C/svg%3E");
-  }
-  
-  .tape-stripe {
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .tape-stripe::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 200%;
-    height: 100%;
-    background: repeating-linear-gradient(
-      45deg,
-      #ffff00,
-      #ffff00 20px,
-      #000000 20px,
-      #000000 40px
-    );
-    animation: tapeslide 20s linear infinite;
-    pointer-events: none;
-    z-index: 10;
-  }
-  
-  @keyframes tapeslide {
-    0% {
-      left: -100%;
-    }
-    100% {
-      left: 100%;
-    }
-  }
-  
+  /* Zaans Groen Marquee */
   .marquee-tape {
     position: relative;
     overflow: hidden;
-    background: #ffff00;
-    color: #000000;
-    font-family: 'Impact', sans-serif;
-    font-weight: 900;
-    font-size: 1.5rem;
-    letter-spacing: 0.1em;
-    padding: 1rem 0;
+    background: var(--zaans-groen);
+    color: #ffffff;
+    font-family: 'Amatic SC', cursive;
+    font-size: 2rem;
+    padding: 0.5rem 0;
     white-space: nowrap;
+    border-top: 2px dashed #ffffff; 
+    border-bottom: 2px dashed #ffffff;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   
   .marquee-tape-content {
     display: inline-block;
     padding-left: 100%;
-    animation: marquee 15s linear infinite;
+    animation: marquee 25s linear infinite;
   }
   
   @keyframes marquee {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+
+  /* Schets-stijl Knoppen */
+  .btn-sketch {
+    @apply bg-foreground text-background px-6 py-2 border-2 border-transparent;
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    transition: all 0.2s ease-in-out;
   }
   
-  .mascotte-stamp {
-    position: relative;
-    opacity: 0.15;
-    transform: rotate(-15deg);
-    pointer-events: none;
+  .btn-sketch:hover {
+    @apply bg-primary text-white;
+    transform: scale(1.05);
+  }
+
+  /* --- Houtskool Foto Effecten --- */
+  .charcoal-filter {
+    filter: grayscale(100%) contrast(120%) brightness(0.9) sepia(20%);
+    mix-blend-mode: multiply;
+    transition: all 0.4s ease;
+    opacity: 0.9;
+  }
+
+  .charcoal-filter:hover {
+    filter: grayscale(0%) contrast(100%);
+    mix-blend-mode: normal;
+    opacity: 1;
+    z-index: 10;
+    transform: scale(1.05) rotate(0deg) !important;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  }
+
+  /* Uitgeknipte vormen */
+  .clip-torn-1 {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 90% 90%, 85% 85%, 75% 95%, 60% 90%, 0% 100%);
   }
   
-  .industrial-box {
-    @apply border-4 border-foreground bg-white;
-    box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.3);
+  .clip-slice {
+    clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%);
   }
-  
-  .industrial-box:hover {
-    box-shadow: 12px 12px 0px rgba(0, 0, 0, 0.4);
-    transform: translate(-2px, -2px);
-    transition: all 0.2s ease;
-  }
-  
-  .chalk-line {
-    position: relative;
-  }
-  
-  .chalk-line::before {
-    content: '';
+
+  /* Plakbandje */
+  .tape-strip {
     position: absolute;
-    bottom: -10px;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: repeating-linear-gradient(
-      90deg,
-      #ffffff,
-      #ffffff 5px,
-      transparent 5px,
-      transparent 10px
-    );
-    opacity: 0.5;
+    width: 100px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    transform: rotate(-45deg);
+    z-index: 20;
+    backdrop-filter: blur(2px);
+    border-left: 2px dashed rgba(0,0,0,0.1);
+    border-right: 2px dashed rgba(0,0,0,0.1);
+  }
+
+  /* Logo Styling */
+  .logo-plankjesmaffia {
+    max-height: 40px;
+    width: auto;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(2px 2px 0px rgba(50, 92, 68, 0.2));
+  }
+
+  .logo-plankjesmaffia:hover {
+    transform: scale(1.05) rotate(0.5deg);
   }
 }
